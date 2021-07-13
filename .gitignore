@@ -1,3 +1,3 @@
-client/node_modules/*
-client/dist/index.bundle.js*
-client/dist/vendor.bundle/js*
+node_modules/*
+dist/index.bundle.js*
+dist/vendor.bundle/js*
