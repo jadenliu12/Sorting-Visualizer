@@ -15,7 +15,8 @@ module.exports = {
   context: srcPath,
   resolve: {
     alias: {
-      // utilities: path.resolve(srcPath, 'utilities'),
+      states: path.resolve(srcPath, 'states'),
+      utilities: path.resolve(srcPath, 'utilities'),
       components: path.resolve(srcPath, 'components'),
       // api: path.resolve(srcPath, 'api'),
     },

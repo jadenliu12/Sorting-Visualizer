@@ -1,0 +1,12 @@
+.sortBarContainer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 20vh;
+}
+
+.array-bar {
+    display: inline-block;   
+    width: 50px; 
+    margin: 0 3px;
+}

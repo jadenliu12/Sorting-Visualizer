@@ -5,6 +5,8 @@ import {
     Link
 } from 'react-router-dom'
 
+import Home from './Home.jsx';
+
 import './Main.css';
 
 export default class Main extends React.Component {
@@ -16,9 +18,17 @@ export default class Main extends React.Component {
         return (
             <Router>
                 <div className='main'>                    
-                    <div className='left'><button className='navBut'>+</button></div>
-                    <div className='right'><button className='navBut'>+</button></div>
+                    <div className='left'>
+                        <button className='navBut'>+</button>
+                    </div>
+                    <div className='right'>
+                        <button className='navBut'>+</button>
+                    </div>
                 </div>
+
+                <Route exact path="/" render={() => (                    
+                        <Home />                        
+                )}/>
             </Router>
         )
     }
