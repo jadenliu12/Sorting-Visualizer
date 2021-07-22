@@ -1,12 +1,53 @@
-.sortBarContainer {
+.sortBar {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.sortBar .sortBarContainer {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    height: 20vh;
+    position: absolute;
+    bottom: 20vh;
 }
 
-.array-bar {
+.sortBar .sortBarContainer .array-bar {
     display: inline-block;   
     width: 50px; 
     margin: 0 3px;
+}
+
+.sortBar .button {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
+    display: inline-block;
+    font: inherit;
+    height: auto;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 5vh;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+}
+
+.sortBar .button .innerButton {
+    align-items: center;    
+    border: 2px solid #707070;
+    border-radius: 99em;
+    color: #707070;
+    display: flex;
+    font-weight: 600;
+    font-size: 25px;
+    padding: 10px 50px; 
+    height: 2.5em;
+    min-width: 2.5em;    
+    position: relative; /* WebKit Bug 173872 */    
+    width: 100%;    
 }

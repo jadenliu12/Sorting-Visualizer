@@ -10,19 +10,5 @@
     position: absolute;
     color: #707070;
     font-size: 50px;
-}
-
-.home .algo  {
-    position: absolute;
-    color: #707070;
-    left: 20vw;
-    bottom: 20vh;    
-}
-
-.home .algo .algo-left {
-    display: inline-block;
-}
-
-.home .algo .algo-right {
-    display: inline-block;
+    bottom: 25vh;
 }
