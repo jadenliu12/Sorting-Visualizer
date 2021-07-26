@@ -10,6 +10,18 @@ import {setArray} from '../states/SortBar-actions.js';
 
 import './SortBar.css';
 
+//Sorting settings
+var SORT_SPEED = 10;
+
+var TOTAL_ARRAY = 10;
+var ARRAY_LB = 100;
+var ARRAY_UB = 500;
+
+var PRIMARY_COLOR = '#BBECFF';
+var SECONDARY_COLOR = '#FF7878';
+var TERTIARY_COLOR = '#FFD83E';
+var SORTED_COLOR = '#88FFB8';
+
 class SortBar extends React.Component {
     static propTypes = {
         arrayBar: PropTypes.array,
@@ -21,11 +33,12 @@ class SortBar extends React.Component {
         super(props)
         
         this.sort = this.sort.bind(this);
+        this.sorted = this.sorted.bind(this);
         this.checkArray = this.checkArray.bind(this);
     }
 
     componentDidMount() {
-        this.props.dispatch(setArray(100, 500, 10));
+        this.props.dispatch(setArray(ARRAY_LB, ARRAY_UB, TOTAL_ARRAY));
     }
 
     render() {
@@ -38,7 +51,7 @@ class SortBar extends React.Component {
                     className='array-bar' 
                     key={idx}
                     style={{
-                        backgroundColor: '#BBECFF',
+                        backgroundColor: PRIMARY_COLOR,
                         height: `${val}px`,
                     }}
                 />
@@ -58,9 +71,47 @@ class SortBar extends React.Component {
     }
 
     sort() {
-        var algoArr = insertionSort(this.props.arrayBar, this.props.total);
+        if(!this.check()) {
+            var animations = insertionSort(this.props.arrayBar, this.props.total);
+
+            for (let i = 0; i < animations.length; i++) {
+                const arrayBars = document.getElementsByClassName('array-bar');            
+                const isColorChange = i % 3 !== 2;
+                if (isColorChange) {
+                const [barOneIdx, barTwoIdx] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+                const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+
+                    if(i === animations.length-1)
+                        this.sorted();
+                }, i * SORT_SPEED);
+                } else {
+                setTimeout(() => {
+                    const [barOneIdx, newHeight] = animations[i];
+                    const barOneStyle = arrayBars[barOneIdx].style;
+                    barOneStyle.height = `${newHeight}px`;
+
+                    if(i === animations.length-1)
+                        this.sorted();                
+                }, i * SORT_SPEED);
+                }
+            } 
+        }   
+    }
+
+    sorted() {
+        const arrayBars = document.getElementsByClassName('array-bar');
+        for(let item of arrayBars)
+            item.style.backgroundColor = SORTED_COLOR;
+    }
+
+    check() {
         var testArr = this.props.arrayBar.slice().sort((a,b) => a-b);
-        console.log(this.checkArray(algoArr, testArr));
+        return this.checkArray(this.props.arrayBar, testArr);
     }
 
     checkArray(arr1, arr2) {
