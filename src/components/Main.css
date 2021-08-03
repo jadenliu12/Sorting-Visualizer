@@ -40,6 +40,14 @@
     display: block;
 }
 
+.hiddenRight {
+    display: none;
+}
+
+.showRight {
+    display: block;
+}
+
 /* ================= Insert Hover CSS ==================== */
 
 .insertTitle {

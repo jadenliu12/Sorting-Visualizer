@@ -14,6 +14,7 @@ export default class Main extends React.Component {
         super(props)
 
         this.toggleAlgo = this.toggleAlgo.bind(this);
+        this.toggleRight = this.toggleRight.bind(this);
     }
 
     render() {
@@ -88,21 +89,17 @@ export default class Main extends React.Component {
                         </div>
                     </div>
                     <div className='right'>
-                        <button className='navBut'>+</button>
+                        <button className='navBut' id='rightButt' onClick={() => this.toggleRight()}>+</button>
 
-                        <div className='vertLine hidden'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='bucket hidden'>
-                                <button className='algoBut'>B.S</button>
-                            </div>                            
+                        <div className='vertLine hiddenRight'>&nbsp;</div>
+                        <div className='input hiddenRight'>
+                            <button className='algoBut'>In</button>
+                        </div>                            
+
+                        <div className='vertLine hiddenRight'>&nbsp;</div>
+                        <div className='settings hiddenRight'>
+                            <button className='algoBut'><i class="fas fa-cog"></i></button>
                         </div>
-
-                        <div className='vertLine hidden'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='bucket hidden'>
-                                <button className='algoBut'>B.S</button>
-                            </div>
-                        </div>                                                
                     </div>
                 </div>
 
@@ -122,5 +119,16 @@ export default class Main extends React.Component {
         for(let item of arrHidden) {                          
             item.classList.toggle('showLeft');
         }            
+    }
+
+    toggleRight() {
+        const arrHidden = document.getElementsByClassName('hiddenRight');
+        const button = document.getElementById('rightButt');
+
+        button.textContent = button.textContent == '+' ? '-' : '+';
+
+        for(let item of arrHidden) {                          
+            item.classList.toggle('showRight');
+        }         
     }
 }
