@@ -95,7 +95,7 @@ export default class Main extends React.Component {
 
                         <div className='vertLine hiddenRight'>&nbsp;</div>
                         <div className='input hiddenRight'>
-                            <button className='inSetBut' onClick={() => this.toggleInput()}>In</button>
+                            <button className='inSetBut' id='inSetBut' onClick={() => this.toggleInput()}>In</button>
                         </div>                            
 
                         <div className='vertLine hiddenRight'>&nbsp;</div>
@@ -120,9 +120,13 @@ export default class Main extends React.Component {
                                 <p className='inputTitle'>Speed</p>
                                 <div className='butContainer'>
                                     <button className='speedBut'>0.25x</button>
+                                    <div className='horLine'>&nbsp;</div>
                                     <button className='speedBut'>0.5x</button>
+                                    <div className='horLine'>&nbsp;</div>
                                     <button className='speedBut'>1x</button>
+                                    <div className='horLine'>&nbsp;</div>
                                     <button className='speedBut'>1.5x</button>
+                                    <div className='horLine'>&nbsp;</div>
                                     <button className='speedBut'>2x</button>
                                 </div>
                             </div>
@@ -161,6 +165,16 @@ export default class Main extends React.Component {
 
     toggleInput() {
         const arrHidden = document.getElementsByClassName('hiddenIn');
+        const button = document.getElementById('inSetBut');
+                
+        if(button.style.backgroundColor == 'rgb(255, 255, 255)' || button.style.backgroundColor == '') {            
+            button.style.backgroundColor = '#707070';
+            button.style.color = '#FFFFFF';
+        }
+        else {                        
+            button.style.backgroundColor = '#FFFFFF';
+            button.style.color = '#707070';
+        }
 
         for(let item of arrHidden) {                          
             item.classList.toggle('showIn');
