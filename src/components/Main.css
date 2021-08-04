@@ -24,6 +24,18 @@
     color: #707070;
 }
 
+.inSetBut {
+    width: 50px;
+    height: 50px;
+    line-height: 25px;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 50%;
+    border-color: #707070;
+    background-color: #FFFFFF;
+    color: #707070;    
+}
+
 .vertLine {
     width: 25px;
     height: 40px;
@@ -46,6 +58,28 @@
 
 .showRight {
     display: block;
+}
+
+.hiddenIn {
+    display: none;
+}
+
+.showIn {
+    display: block;
+}
+
+/* ================= Left Right Div CSS ==================== */
+
+.left {
+    display: flex;
+    flex-direction: column;
+    float: left;    
+    margin: 10px;
+}
+
+.right {
+    float: right;    
+    margin: 10px;
 }
 
 /* ================= Insert Hover CSS ==================== */
@@ -192,16 +226,24 @@
     display: inline-block;    
 }
 
-/* ================= Left Right Div CSS ==================== */
+/* ================= Input Box CSS ==================== */
 
-.left {
-    display: flex;
-    flex-direction: column;
-    float: left;    
-    margin: 10px;
+.inputContainer {
+    border: 3px solid #707070;
+    color: #707070;
 }
 
-.right {
-    float: right;    
-    margin: 10px;
+.inputTitle {
+    font-size: 26px;
+    font-weight: bold;    
+}
+
+.numOfInput::-webkit-inner-spin-button, 
+.numOfInput::-webkit-outer-spin-button {  
+   opacity: 1;
+   background-color: none;
+}
+
+.numOfInput {
+    border-radius: 20px;    
 }

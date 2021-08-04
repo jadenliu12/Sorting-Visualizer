@@ -1,3 +1,4 @@
+import { Button } from 'bootstrap';
 import React from 'react';
 import {
     BrowserRouter as Router,
@@ -15,6 +16,7 @@ export default class Main extends React.Component {
 
         this.toggleAlgo = this.toggleAlgo.bind(this);
         this.toggleRight = this.toggleRight.bind(this);
+        this.toggleInput = this.toggleInput.bind(this);
     }
 
     render() {
@@ -93,12 +95,37 @@ export default class Main extends React.Component {
 
                         <div className='vertLine hiddenRight'>&nbsp;</div>
                         <div className='input hiddenRight'>
-                            <button className='algoBut'>In</button>
+                            <button className='inSetBut' onClick={() => this.toggleInput()}>In</button>
                         </div>                            
 
                         <div className='vertLine hiddenRight'>&nbsp;</div>
                         <div className='settings hiddenRight'>
-                            <button className='algoBut'><i class="fas fa-cog"></i></button>
+                            <button className='inSetBut'><i class="fas fa-cog"></i></button>
+                        </div>
+
+                        <div className='inputContainer hiddenIn'>
+                            <div className='numOfInContainer'>
+                                <p className='inputTitle'>Number of Inputs</p>                                
+                                <input type='number' className='numOfInput' min='1' />
+                            </div>                            
+
+                            <div className='inContainer'>
+                                <p className='inputTitle'>Inputs <span className='inputSubTitle'>(Separated by ',' or ' ')</span></p>
+                                <textarea className='inputArea'></textarea>
+                                <button className='inputBut'>RANDOMIZE!</button>
+                                <button className='inputBut'>SHUFFLE!</button>
+                            </div>
+
+                            <div className='speedContainer'>
+                                <p className='inputTitle'>Speed</p>
+                                <div className='butContainer'>
+                                    <button className='speedBut'>0.25x</button>
+                                    <button className='speedBut'>0.5x</button>
+                                    <button className='speedBut'>1x</button>
+                                    <button className='speedBut'>1.5x</button>
+                                    <button className='speedBut'>2x</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,4 +158,12 @@ export default class Main extends React.Component {
             item.classList.toggle('showRight');
         }         
     }
+
+    toggleInput() {
+        const arrHidden = document.getElementsByClassName('hiddenIn');
+
+        for(let item of arrHidden) {                          
+            item.classList.toggle('showIn');
+        }         
+    }    
 }
