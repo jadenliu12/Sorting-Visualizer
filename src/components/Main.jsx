@@ -1,25 +1,45 @@
-import { Button } from 'bootstrap';
 import React from 'react';
 import {
     BrowserRouter as Router,
     Route,
     Link
 } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import Home from './Home.jsx';
 
+//redux
+import {changeTotal, changeArray, changeLB, changeUB} from '../states/SortBar-actions.js';
+
 import './Main.css';
 
-export default class Main extends React.Component {
+class Main extends React.Component {
+    static propTypes = {
+        arrayBar: PropTypes.array,
+        arrayStr: PropTypes.string,
+        lowerBound: PropTypes.number,
+        upperBound: PropTypes.number,         
+        total: PropTypes.number,
+        dispatch: PropTypes.func
+    };
+
     constructor(props) {
         super(props)
 
         this.toggleAlgo = this.toggleAlgo.bind(this);
         this.toggleRight = this.toggleRight.bind(this);
         this.toggleInput = this.toggleInput.bind(this);
+        this.onChangeNumber = this.onChangeNumber.bind(this);
+        this.onChangeArrText = this.onChangeArrText.bind(this);
+        this.onChangeSliderOne = this.onChangeSliderOne.bind(this);
+        this.onChangeSliderTwo = this.onChangeSliderTwo.bind(this);
+        this.fillColor = this.fillColor.bind(this);
     }
 
     render() {
+        const {arrayBar, arrayStr, lowerBound, upperBound, total} = this.props;
+
         return (
             <Router>
                 <div className='main'>                    
@@ -106,14 +126,22 @@ export default class Main extends React.Component {
                         <div className='inputContainer hiddenIn'>
                             <div className='numOfInContainer'>
                                 <p className='inputTitle'>Number of Inputs</p>                                
-                                <input type='number' className='numOfInput' min='1' />
+                                <input type='number' className='numOfInput' min='1' value={total} onChange={(e) => this.onChangeNumber(e)} />
                             </div>                            
 
                             <div className='inContainer'>
                                 <p className='inputTitle'>Inputs <span className='inputSubTitle'>(Separated by ',' or ' ')</span></p>
-                                <textarea className='inputArea'></textarea>
+                                <textarea className='inputArea' value={arrayStr} onChange={(e) => this.onChangeArrText(e)}></textarea>
                                 <button className='inputBut'>RANDOMIZE!</button>
                                 <button className='inputBut'>SHUFFLE!</button>
+                                <button className='setBut'>SET</button>
+                                <div className="sliderContainer">
+                                    <div className="slider-track"></div>
+                                    <input type="range" min="0" max="1000" value={lowerBound} id="slider-1" onChange={() => this.onChangeSliderOne()} />
+                                    <input type="range" min="0" max="1000" value={upperBound} id="slider-2" onChange={() => this.onChangeSliderTwo()} />                                 
+                                </div>                                
+                                <div className="sliderValueLeft" ><div className="valueLeft"><p className="valLeft">{lowerBound}</p></div></div> 
+                                <div className="sliderValueRight"><div className="valueRight"><p className="valRight">{upperBound}</p></div></div>                                   
                             </div>
 
                             <div className='speedContainer'>
@@ -178,6 +206,63 @@ export default class Main extends React.Component {
 
         for(let item of arrHidden) {                          
             item.classList.toggle('showIn');
-        }         
-    }    
+        }      
+        
+        this.fillColor();
+    }   
+    
+    onChangeNumber(e) {            
+        this.props.dispatch(changeTotal(e.target.value));
+    }
+
+    onChangeArrText(e) {
+        this.props.dispatch(changeArray(e.target.value));
+    }
+
+    onChangeSliderOne() {
+        let sliderOne = document.getElementById("slider-1");
+        let sliderTwo = document.getElementById("slider-2");
+        let sliderValue = document.querySelector(".valueLeft");
+        let sliderVal = document.querySelector(".valLeft");
+
+        if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) >= 0){
+            let val = parseInt(sliderOne.value);
+            this.props.dispatch(changeLB(val));
+            sliderVal.textContent = val;
+            sliderValue.style.left = (val/10) + "%";
+        }
+
+        this.fillColor();                
+    }
+
+    onChangeSliderTwo() {
+        let sliderOne = document.getElementById("slider-1");
+        let sliderTwo = document.getElementById("slider-2");  
+        let sliderValue = document.querySelector(".valueRight");
+        let sliderVal = document.querySelector(".valRight");
+
+        if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) >= 0){
+            let val = parseInt(sliderTwo.value);
+            this.props.dispatch(changeUB(val));
+            sliderVal.textContent = val;
+            sliderValue.style.left = (val/10) + "%";                        
+        }
+
+        this.fillColor();        
+    }
+
+
+    fillColor() {
+        let sliderOne = document.getElementById("slider-1");
+        let sliderTwo = document.getElementById("slider-2"); 
+        let sliderTrack = document.querySelector(".slider-track");
+        
+        let percent1 = (sliderOne.value / 1000) * 100;
+        let percent2 = (sliderTwo.value / 1000) * 100;
+        sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #707070 ${percent1}% , #707070 ${percent2}%, #dadae5 ${percent2}%)`;        
+    }
 }
+
+export default connect(state => ({
+    ...state.sortBar,
+}))(Main);

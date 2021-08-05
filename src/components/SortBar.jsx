@@ -25,6 +25,9 @@ var SORTED_COLOR = '#88FFB8';
 class SortBar extends React.Component {
     static propTypes = {
         arrayBar: PropTypes.array,
+        arrayStr: PropTypes.string,
+        lowerBound: PropTypes.number,
+        upperBound: PropTypes.number,        
         total: PropTypes.number,
         dispatch: PropTypes.func
     };
