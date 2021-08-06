@@ -7,6 +7,13 @@ export function setArray(start, end, num) {
     };
 }
 
+export function shuffleArray(arr) {
+    return {
+        type: '@SORT_BAR/SHUFFLE_ARRAY',
+        arr,
+    };
+}
+
 export function changeTotal(val) {
     return {
         type: '@SORT_BAR/CHANGE_TOTAL',

@@ -1,4 +1,5 @@
-import {randomNumberGenerator} from '../utilities/RandomNumberGen';
+import {randomNumberGenerator} from '../utilities/RandomNumberGen.js';
+import {shuffleArray} from '../utilities/NumberShuffler.js';
 
 const initSortBarState = {
     arrayBar: [],
@@ -20,6 +21,13 @@ export function sortBar(state = initSortBarState, action) {
                 upperBound: action.end,                
                 total: action.num
             };
+        case '@SORT_BAR/SHUFFLE_ARRAY':
+            const shuffledArr = shuffleArray(action.arr);
+            return {
+                ...state,
+                arrayBar: shuffledArr,
+                arrayStr: shuffledArr.join(','),
+            };        
         case '@SORT_BAR/CHANGE_TOTAL':            
             return {
                 ...state,

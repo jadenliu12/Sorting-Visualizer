@@ -253,6 +253,13 @@
     font-weight: normal;
 }
 
+.inputSubSubTitle {
+    font-size: 10px;
+    font-weight: normal;
+    margin: 0 auto;
+    text-align: center;
+}
+
 .numOfInContainer {
     margin-top: 5px;
     margin-bottom: 25px;
@@ -335,7 +342,7 @@
 .sliderContainer{
     position: relative;
     width: 100%;
-    height: 100px;
+    height: 35px;
     margin-top: 30px;
 }
 input[type="range"]{
@@ -346,7 +353,7 @@ input[type="range"]{
     outline: none;
     position: absolute;
     margin: auto;
-    top: -100px;
+    top: -35px;
     bottom: 0;
     background-color: transparent;
     pointer-events: none;
@@ -405,26 +412,15 @@ input[type="range"]:active::-webkit-slider-thumb{
     border: 3px solid #707070;
 }
 
-.sliderValueLeft, .sliderValueRight{
-    position:relative;
-    width:100%;
-}
-
-.valueLeft, .valueRight {
-    position: absolute;
-    height:45px;
-    width:45px;
-    background: red;
-    left:50%;
-    top: -77px;
-    transform: rotate(227deg);
-    border:solid 3px #fff;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-}
-
-.valLeft, .valRight {
-    transform: rotate(-227deg) translate(15%, -25%);
-    text-align: center;
+.sliderValue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    height: 30px;
+    width: 110px;
+    margin: 0 auto;
+    color: #FFFFFF;
+    background: #707070;
+    border-radius: 20px;
 }

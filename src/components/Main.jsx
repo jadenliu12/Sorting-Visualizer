@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import Home from './Home.jsx';
 
 //redux
-import {changeTotal, changeArray, changeLB, changeUB} from '../states/SortBar-actions.js';
+import {setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB} from '../states/SortBar-actions.js';
 
 import './Main.css';
 
@@ -35,6 +35,9 @@ class Main extends React.Component {
         this.onChangeSliderOne = this.onChangeSliderOne.bind(this);
         this.onChangeSliderTwo = this.onChangeSliderTwo.bind(this);
         this.fillColor = this.fillColor.bind(this);
+        this.randomize = this.randomize.bind(this);
+        this.shuffle = this.shuffle.bind(this);
+        this.set = this.set.bind(this);
     }
 
     render() {
@@ -132,16 +135,18 @@ class Main extends React.Component {
                             <div className='inContainer'>
                                 <p className='inputTitle'>Inputs <span className='inputSubTitle'>(Separated by ',' or ' ')</span></p>
                                 <textarea className='inputArea' value={arrayStr} onChange={(e) => this.onChangeArrText(e)}></textarea>
-                                <button className='inputBut'>RANDOMIZE!</button>
-                                <button className='inputBut'>SHUFFLE!</button>
-                                <button className='setBut'>SET</button>
+                                <button className='inputBut' onClick={() => this.randomize()}>RANDOMIZE!</button>
+                                <button className='inputBut' onClick={() => this.shuffle()}>SHUFFLE!</button>
+                                <button className='setBut' onClick={() => this.set()}>SET</button>
                                 <div className="sliderContainer">
                                     <div className="slider-track"></div>
                                     <input type="range" min="0" max="1000" value={lowerBound} id="slider-1" onChange={() => this.onChangeSliderOne()} />
                                     <input type="range" min="0" max="1000" value={upperBound} id="slider-2" onChange={() => this.onChangeSliderTwo()} />                                 
-                                </div>                                
-                                <div className="sliderValueLeft" ><div className="valueLeft"><p className="valLeft">{lowerBound}</p></div></div> 
-                                <div className="sliderValueRight"><div className="valueRight"><p className="valRight">{upperBound}</p></div></div>                                   
+                                </div>                     
+                                <p className="inputSubSubTitle">Input's range: </p>           
+                                <div className="sliderValue">
+                                    <span>{lowerBound}</span> - <span>{upperBound}</span>
+                                </div>
                             </div>
 
                             <div className='speedContainer'>
@@ -208,7 +213,8 @@ class Main extends React.Component {
             item.classList.toggle('showIn');
         }      
         
-        this.fillColor();
+        this.onChangeSliderOne();
+        this.onChangeSliderTwo();
     }   
     
     onChangeNumber(e) {            
@@ -222,14 +228,10 @@ class Main extends React.Component {
     onChangeSliderOne() {
         let sliderOne = document.getElementById("slider-1");
         let sliderTwo = document.getElementById("slider-2");
-        let sliderValue = document.querySelector(".valueLeft");
-        let sliderVal = document.querySelector(".valLeft");
 
         if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) >= 0){
             let val = parseInt(sliderOne.value);
             this.props.dispatch(changeLB(val));
-            sliderVal.textContent = val;
-            sliderValue.style.left = (val/10) + "%";
         }
 
         this.fillColor();                
@@ -238,19 +240,14 @@ class Main extends React.Component {
     onChangeSliderTwo() {
         let sliderOne = document.getElementById("slider-1");
         let sliderTwo = document.getElementById("slider-2");  
-        let sliderValue = document.querySelector(".valueRight");
-        let sliderVal = document.querySelector(".valRight");
 
         if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) >= 0){
             let val = parseInt(sliderTwo.value);
-            this.props.dispatch(changeUB(val));
-            sliderVal.textContent = val;
-            sliderValue.style.left = (val/10) + "%";                        
+            this.props.dispatch(changeUB(val));                       
         }
 
         this.fillColor();        
     }
-
 
     fillColor() {
         let sliderOne = document.getElementById("slider-1");
@@ -260,6 +257,18 @@ class Main extends React.Component {
         let percent1 = (sliderOne.value / 1000) * 100;
         let percent2 = (sliderTwo.value / 1000) * 100;
         sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #707070 ${percent1}% , #707070 ${percent2}%, #dadae5 ${percent2}%)`;        
+    }
+
+    randomize() {
+        this.props.dispatch(setArray(this.props.lowerBound, this.props.upperBound, this.props.total));
+    }
+
+    shuffle() {
+        this.props.dispatch(shuffleArray(this.props.arrayBar));
+    }
+
+    set() {
+
     }
 }
 
