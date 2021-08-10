@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {insertionSort} from '../utilities/InsertionSort.js';
 
 //redux
-import {setArray} from '../states/SortBar-actions.js';
+import {setArray, changeColor} from '../states/SortBar-actions.js';
 
 import './SortBar.css';
 
@@ -29,6 +29,7 @@ class SortBar extends React.Component {
         lowerBound: PropTypes.number,
         upperBound: PropTypes.number,        
         total: PropTypes.number,
+        color: PropTypes.string,
         dispatch: PropTypes.func
     };
 
@@ -45,7 +46,7 @@ class SortBar extends React.Component {
     }
 
     render() {
-        const {arrayBar, total} = this.props;  
+        const {arrayBar, arrayStr, lowerBound, upperBound, total, color} = this.props;
         
         let children = (<div></div>);
         if (arrayBar.length) {
@@ -54,7 +55,7 @@ class SortBar extends React.Component {
                     className='array-bar' 
                     key={idx}
                     style={{
-                        backgroundColor: PRIMARY_COLOR,
+                        backgroundColor: color,
                         height: `${val}px`,
                     }}
                 />
@@ -81,26 +82,27 @@ class SortBar extends React.Component {
                 const arrayBars = document.getElementsByClassName('array-bar');            
                 const isColorChange = i % 3 !== 2;
                 if (isColorChange) {
-                const [barOneIdx, barTwoIdx] = animations[i];
-                const barOneStyle = arrayBars[barOneIdx].style;
-                const barTwoStyle = arrayBars[barTwoIdx].style;
-                const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-                setTimeout(() => {
-                    barOneStyle.backgroundColor = color;
-                    barTwoStyle.backgroundColor = color;
-
-                    if(i === animations.length-1)
-                        this.sorted();
-                }, i * SORT_SPEED);
-                } else {
-                setTimeout(() => {
-                    const [barOneIdx, newHeight] = animations[i];
+                    const [barOneIdx, barTwoIdx] = animations[i];
                     const barOneStyle = arrayBars[barOneIdx].style;
-                    barOneStyle.height = `${newHeight}px`;
+                    const barTwoStyle = arrayBars[barTwoIdx].style;
+                    const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = color;
+                        barTwoStyle.backgroundColor = color;
 
-                    if(i === animations.length-1)
-                        this.sorted();                
-                }, i * SORT_SPEED);
+                        if(i === animations.length-1)
+                            this.sorted();
+                    }, i * SORT_SPEED);
+                } 
+                else {
+                    setTimeout(() => {
+                        const [barOneIdx, newHeight] = animations[i];
+                        const barOneStyle = arrayBars[barOneIdx].style;
+                        barOneStyle.height = `${newHeight}px`;
+
+                        if(i === animations.length-1)
+                            this.sorted();                
+                    }, i * SORT_SPEED);
                 }
             } 
         }   
@@ -110,6 +112,7 @@ class SortBar extends React.Component {
         const arrayBars = document.getElementsByClassName('array-bar');
         for(let item of arrayBars)
             item.style.backgroundColor = SORTED_COLOR;
+        this.props.dispatch(changeColor(SORTED_COLOR));
     }
 
     check() {

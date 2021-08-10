@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import Home from './Home.jsx';
 
 //redux
-import {setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB} from '../states/SortBar-actions.js';
+import {set, setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB, changeColor} from '../states/SortBar-actions.js';
 
 import './Main.css';
 
@@ -21,6 +21,7 @@ class Main extends React.Component {
         lowerBound: PropTypes.number,
         upperBound: PropTypes.number,         
         total: PropTypes.number,
+        color: PropTypes.string,
         dispatch: PropTypes.func
     };
 
@@ -30,18 +31,20 @@ class Main extends React.Component {
         this.toggleAlgo = this.toggleAlgo.bind(this);
         this.toggleRight = this.toggleRight.bind(this);
         this.toggleInput = this.toggleInput.bind(this);
+        this.toggleSetting = this.toggleSetting.bind(this);
         this.onChangeNumber = this.onChangeNumber.bind(this);
         this.onChangeArrText = this.onChangeArrText.bind(this);
         this.onChangeSliderOne = this.onChangeSliderOne.bind(this);
         this.onChangeSliderTwo = this.onChangeSliderTwo.bind(this);
         this.fillColor = this.fillColor.bind(this);
+        this.fillColorWithVal = this.fillColorWithVal.bind(this);
         this.randomize = this.randomize.bind(this);
         this.shuffle = this.shuffle.bind(this);
         this.set = this.set.bind(this);
     }
 
     render() {
-        const {arrayBar, arrayStr, lowerBound, upperBound, total} = this.props;
+        const {arrayBar, arrayStr, lowerBound, upperBound, total, color} = this.props;
 
         return (
             <Router>
@@ -118,12 +121,12 @@ class Main extends React.Component {
 
                         <div className='vertLine hiddenRight'>&nbsp;</div>
                         <div className='input hiddenRight'>
-                            <button className='inSetBut' id='inSetBut' onClick={() => this.toggleInput()}>In</button>
+                            <button className='inSetBut' id='inBut' onClick={() => this.toggleInput()}>In</button>
                         </div>                            
 
                         <div className='vertLine hiddenRight'>&nbsp;</div>
                         <div className='settings hiddenRight'>
-                            <button className='inSetBut'><i class="fas fa-cog"></i></button>
+                            <button className='inSetBut' id='setBut' onClick={() => this.toggleSetting()}><i class="fas fa-cog"></i></button>
                         </div>
 
                         <div className='inputContainer hiddenIn'>
@@ -140,8 +143,8 @@ class Main extends React.Component {
                                 <button className='setBut' onClick={() => this.set()}>SET</button>
                                 <div className="sliderContainer">
                                     <div className="slider-track"></div>
-                                    <input type="range" min="0" max="1000" value={lowerBound} id="slider-1" onChange={() => this.onChangeSliderOne()} />
-                                    <input type="range" min="0" max="1000" value={upperBound} id="slider-2" onChange={() => this.onChangeSliderTwo()} />                                 
+                                    <input type="range" min="1" max="1000" value={lowerBound} id="slider-1" onChange={() => this.onChangeSliderOne()} />
+                                    <input type="range" min="1" max="1000" value={upperBound} id="slider-2" onChange={() => this.onChangeSliderTwo()} />                                 
                                 </div>                     
                                 <p className="inputSubSubTitle">Input's range: </p>           
                                 <div className="sliderValue">
@@ -164,6 +167,41 @@ class Main extends React.Component {
                                 </div>
                             </div>
                         </div>
+
+                        <div className='settingContainer hiddenSet'>
+                            <div className='displayContainer'>
+                                <p className='SettingTitle'>Display Styles</p>    
+                                <input type="radio" id="Bar" name="display" value="Bar" />
+                                <label for="Bar">Bar</label>
+                                <br />
+                                <input type="radio" id="Node" name="display" value="Node" />
+                                <label for="Node">Node</label>
+                                <br />
+                                <input type="radio" id="Tree" name="display" value="Tree" />
+                                <label for="Tree">Tree</label>                                                            
+                            </div>                            
+
+                            <div className='colorContainer'>
+                                <p className='SettingTitle'>Color</p>
+                                <input type="color" id="head" name="color" value="#e66465" />
+                                <label for="head">Base Color</label>
+                                <br />
+                                <input type="color" id="head" name="color" value="#e66465" />
+                                <label for="head">Selected (1) Color</label>
+                                <br />
+                                <input type="color" id="head" name="color" value="#e66465" />
+                                <label for="head">Selected (2) Color</label>                                                                
+                            </div>
+
+                            <div className='modeContainer'>
+                                <p className='SettingTitle'>Mode</p>
+                                <div className='switch'>
+                                    <input type="checkbox" />
+                                    <span class="slider round"></span>
+                                </div>
+                                <label>Light Mode</label>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
 
@@ -198,15 +236,22 @@ class Main extends React.Component {
 
     toggleInput() {
         const arrHidden = document.getElementsByClassName('hiddenIn');
-        const button = document.getElementById('inSetBut');
+        const inButton = document.getElementById('inBut');
+        const setButton = document.getElementById('setBut');
                 
-        if(button.style.backgroundColor == 'rgb(255, 255, 255)' || button.style.backgroundColor == '') {            
-            button.style.backgroundColor = '#707070';
-            button.style.color = '#FFFFFF';
+        if(inButton.style.backgroundColor == 'rgb(255, 255, 255)' || inButton.style.backgroundColor == '') {            
+            inButton.style.backgroundColor = '#707070';
+            inButton.style.color = '#FFFFFF';
         }
         else {                        
-            button.style.backgroundColor = '#FFFFFF';
-            button.style.color = '#707070';
+            inButton.style.backgroundColor = '#FFFFFF';
+            inButton.style.color = '#707070';
+        }
+
+        if(setButton.style.backgroundColor != 'rgb(255, 255, 255)' || setButton.style.backgroundColor == '') {
+            setButton.style.backgroundColor = '#FFFFFF';
+            setButton.style.color = '#707070';         
+            document.getElementsByClassName('hiddenSet')[0].classList = 'settingContainer hiddenSet';   
         }
 
         for(let item of arrHidden) {                          
@@ -215,7 +260,35 @@ class Main extends React.Component {
         
         this.onChangeSliderOne();
         this.onChangeSliderTwo();
-    }   
+    }
+    
+    toggleSetting() {
+        const arrHidden = document.getElementsByClassName('hiddenSet');
+        const inButton = document.getElementById('inBut');
+        const setButton = document.getElementById('setBut');
+                
+        if(setButton.style.backgroundColor == 'rgb(255, 255, 255)' || setButton.style.backgroundColor == '') {            
+            setButton.style.backgroundColor = '#707070';
+            setButton.style.color = '#FFFFFF';
+        }
+        else {                        
+            setButton.style.backgroundColor = '#FFFFFF';
+            setButton.style.color = '#707070';
+        }
+
+        if(inButton.style.backgroundColor != 'rgb(255, 255, 255)' || inButton.style.backgroundColor == '') {
+            inButton.style.backgroundColor = '#FFFFFF';
+            inButton.style.color = '#707070';                  
+            document.getElementsByClassName('hiddenIn')[0].classList = 'inputContainer hiddenIn';
+        }
+
+        for(let item of arrHidden) {                          
+            item.classList.toggle('showSet');
+        }      
+        
+        this.onChangeSliderOne();
+        this.onChangeSliderTwo();
+    }    
     
     onChangeNumber(e) {            
         this.props.dispatch(changeTotal(e.target.value));
@@ -229,7 +302,7 @@ class Main extends React.Component {
         let sliderOne = document.getElementById("slider-1");
         let sliderTwo = document.getElementById("slider-2");
 
-        if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) >= 0){
+        if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) >= 10){
             let val = parseInt(sliderOne.value);
             this.props.dispatch(changeLB(val));
         }
@@ -241,7 +314,7 @@ class Main extends React.Component {
         let sliderOne = document.getElementById("slider-1");
         let sliderTwo = document.getElementById("slider-2");  
 
-        if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) >= 0){
+        if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) >= 10){
             let val = parseInt(sliderTwo.value);
             this.props.dispatch(changeUB(val));                       
         }
@@ -259,16 +332,36 @@ class Main extends React.Component {
         sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #707070 ${percent1}% , #707070 ${percent2}%, #dadae5 ${percent2}%)`;        
     }
 
+    fillColorWithVal(lb, ub) { 
+        let sliderTrack = document.querySelector(".slider-track");
+        
+        let percent1 = (lb / 1000) * 100;
+        let percent2 = (ub / 1000) * 100;
+        sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #707070 ${percent1}% , #707070 ${percent2}%, #dadae5 ${percent2}%)`;        
+    }
+
     randomize() {
         this.props.dispatch(setArray(this.props.lowerBound, this.props.upperBound, this.props.total));
+        this.props.dispatch(changeColor('#BBECFF'));
     }
 
     shuffle() {
         this.props.dispatch(shuffleArray(this.props.arrayBar));
+        this.props.dispatch(changeColor('#BBECFF'));
     }
 
     set() {
+        const comma = this.props.arrayStr.split(',');
+        const space = this.props.arrayStr.split(' ');
+        const arr = comma.length > space.length ? comma : space;
+        const sep = comma.length > space.length ? ',' : ' ';
 
+        const min = Math.min.apply(null, arr);
+        const max = Math.max.apply(null, arr);
+
+        this.props.dispatch(set(arr, min, max, sep));
+        this.fillColorWithVal(min, max);
+        this.props.dispatch(changeColor('#BBECFF'));
     }
 }
 

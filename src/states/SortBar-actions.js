@@ -1,3 +1,13 @@
+export function set(arr, start, end, separator) {
+    return {
+        type: '@SORT_BAR/SET',
+        arr, 
+        start,
+        end,
+        separator,
+    };
+}
+
 export function setArray(start, end, num) {
     return {
         type: '@SORT_BAR/SET_ARRAY',
@@ -39,5 +49,12 @@ export function changeUB(val) {
     return {
         type: '@SORT_BAR/CHANGE_UB',
         val,
+    }
+}
+
+export function changeColor(color) {
+    return {
+        type: '@SORT_BAR/CHANGE_COLOR',
+        color,
     }
 }
