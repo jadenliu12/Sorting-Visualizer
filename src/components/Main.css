@@ -435,22 +435,28 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 /* ================= Mode Switch CSS ==================== */
 
+.switchContainer {
+    display: flex;
+    align-items: center;
+}
+
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  .switch input { 
+    width: 40px;
+    height: 23px;
+}
+
+.switch input { 
     opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
+    width: 40px;
+    height: 23px;
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
+    pointer-events: none;
     top: 0;
     left: 0;
     right: 0;
@@ -458,39 +464,123 @@ input[type="range"]:active::-webkit-slider-thumb{
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 15px;
+    width: 15px;
     left: 4px;
     bottom: 4px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input:checked + .slider {
+}
+
+input:checked + .slider {
     background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
+}
+
+input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(15px);
+    -ms-transform: translateX(15px);
+    transform: translateX(15px);
+}
+
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
+}
+
+.switchLabel {
+    margin-left: 5px;
+}
+
+/* ================= Settings CSS ==================== */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 30px !important;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: 21px;
+    width: 21px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    top: 7px;
+    left: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.colorInput {
+    width: 60px;
+    height: 20px;
+    padding: 0;
+}
+
+.textContainer {
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+.colorLabel {
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+}
+
+.dash {
+    font-weight: bold;
+    font-size: 30px;
+}

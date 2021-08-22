@@ -170,36 +170,48 @@ class Main extends React.Component {
 
                         <div className='settingContainer hiddenSet'>
                             <div className='displayContainer'>
-                                <p className='SettingTitle'>Display Styles</p>    
-                                <input type="radio" id="Bar" name="display" value="Bar" />
-                                <label for="Bar">Bar</label>
-                                <br />
-                                <input type="radio" id="Node" name="display" value="Node" />
-                                <label for="Node">Node</label>
-                                <br />
-                                <input type="radio" id="Tree" name="display" value="Tree" />
-                                <label for="Tree">Tree</label>                                                            
+                                <p className='SettingTitle'>Display Styles</p>
+                                <label className="container">Bar
+                                    <input type="radio" name="display" />
+                                    <span className="checkmark"></span>
+                                </label>
+                                <label className="container">Node
+                                    <input type="radio" name="display"/>
+                                    <span className="checkmark"></span>
+                                </label>
+                                <label className="container">Tree
+                                    <input type="radio" name="display" />
+                                    <span className="checkmark"></span>
+                                </label>                                                                                        
                             </div>                            
 
                             <div className='colorContainer'>
                                 <p className='SettingTitle'>Color</p>
-                                <input type="color" id="head" name="color" value="#e66465" />
-                                <label for="head">Base Color</label>
+                                <input type="color" id="head" name="color" value="#BBECFF" className="colorInput" />    
+                                <div className="textContainer">
+                                    <label for="head" className="colorLabel"><span className="dash">-</span>Base Color</label>
+                                </div>
                                 <br />
-                                <input type="color" id="head" name="color" value="#e66465" />
-                                <label for="head">Selected (1) Color</label>
-                                <br />
-                                <input type="color" id="head" name="color" value="#e66465" />
-                                <label for="head">Selected (2) Color</label>                                                                
+                                <input type="color" id="head" name="color" value="#FF7878" className="colorInput" />
+                                <div className="textContainer">
+                                    <label for="head" className="colorLabel"><span className="dash">-</span>Selected (1) Color</label>
+                                </div>
+                                <br />                                
+                                <input type="color" id="head" name="color" value="#88FFB8" className="colorInput" />
+                                <div className="textContainer">
+                                    <label for="head" className="colorLabel"><span className="dash">-</span>Finished Color</label>                                                                
+                                </div>
                             </div>
 
                             <div className='modeContainer'>
                                 <p className='SettingTitle'>Mode</p>
-                                <div className='switch'>
-                                    <input type="checkbox" />
-                                    <span class="slider round"></span>
+                                <div className="switchContainer">
+                                    <div className='switch'>
+                                        <input type="checkbox" />
+                                        <span class="slider round"></span>
+                                    </div>
+                                    <label className="switchLabel">Light Mode</label>
                                 </div>
-                                <label>Light Mode</label>
                             </div>
                         </div>                        
                     </div>
