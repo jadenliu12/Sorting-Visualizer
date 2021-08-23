@@ -187,19 +187,21 @@ class Main extends React.Component {
 
                             <div className='colorContainer'>
                                 <p className='SettingTitle'>Color</p>
-                                <input type="color" id="head" name="color" value="#BBECFF" className="colorInput" />    
-                                <div className="textContainer">
-                                    <label for="head" className="colorLabel"><span className="dash">-</span>Base Color</label>
-                                </div>
-                                <br />
-                                <input type="color" id="head" name="color" value="#FF7878" className="colorInput" />
-                                <div className="textContainer">
-                                    <label for="head" className="colorLabel"><span className="dash">-</span>Selected (1) Color</label>
-                                </div>
-                                <br />                                
-                                <input type="color" id="head" name="color" value="#88FFB8" className="colorInput" />
-                                <div className="textContainer">
-                                    <label for="head" className="colorLabel"><span className="dash">-</span>Finished Color</label>                                                                
+                                <div className='colorInputContainer'>
+                                    <input type="color" id="head" name="color" value="#BBECFF" className="colorInput" />    
+                                    <div className="textContainer">
+                                        <label for="head" className="colorLabel"><span className="dash">-</span>Base Color</label>
+                                    </div>
+                                    <br />
+                                    <input type="color" id="head" name="color" value="#FF7878" className="colorInput" />
+                                    <div className="textContainer">
+                                        <label for="head" className="colorLabel"><span className="dash">-</span>Selected (1) Color</label>
+                                    </div>
+                                    <br />                                
+                                    <input type="color" id="head" name="color" value="#88FFB8" className="colorInput" />
+                                    <div className="textContainer">
+                                        <label for="head" className="colorLabel"><span className="dash">-</span>Finished Color</label>                                                                
+                                    </div>
                                 </div>
                             </div>
 
@@ -210,7 +212,7 @@ class Main extends React.Component {
                                         <input type="checkbox" />
                                         <span class="slider round"></span>
                                     </div>
-                                    <label className="switchLabel">Light Mode</label>
+                                    <label className="switchLabel">Light/Dark Mode</label>
                                 </div>
                             </div>
                         </div>                        
