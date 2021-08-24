@@ -1,3 +1,4 @@
+// SortBar Actions
 export function set(arr, start, end, separator) {
     return {
         type: '@SORT_BAR/SET',
@@ -56,5 +57,18 @@ export function changeColor(color) {
     return {
         type: '@SORT_BAR/CHANGE_COLOR',
         color,
+    }
+}
+
+// Algo Actions
+export function setToHome() {
+    return {
+        type: '@ALGO/SET_TO_HOME',
+    }
+}
+
+export function setToInsert() {
+    return {
+        type: '@ALGO/SET_TO_INSERT',
     }
 }

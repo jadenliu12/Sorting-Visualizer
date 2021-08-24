@@ -67,3 +67,28 @@ export function sortBar(state = initSortBarState, action) {
             return state;        
     }
 }
+
+const initAlgoState = {
+    algo: 'home',
+    algoClosedSym: '+',
+    algoOpenedSym: '-'
+}
+
+export function algo(state = initAlgoState, action) {
+    switch (action.type) {
+        case '@ALGO/SET_TO_HOME':       
+            return {
+                algo: 'home',
+                algoClosedSym: '+',
+                algoOpenedSym: '-',
+            };
+        case '@ALGO/SET_TO_INSERT':       
+            return {
+                algo: 'insert',
+                algoClosedSym: 'I.S',
+                algoOpenedSym: '<i class="fas fa-home"></i>',
+            };                           
+        default:
+            return state;        
+    }
+}

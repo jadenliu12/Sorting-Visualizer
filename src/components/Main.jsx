@@ -2,15 +2,20 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Route,
-    Link
+    Link,
 } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
+// Components
 import Home from './Home.jsx';
+import InsertionSort from './InsertionSort.jsx';
 
 //redux
-import {set, setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB, changeColor} from '../states/SortBar-actions.js';
+import {
+    set, setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB, changeColor,
+    setToHome, setToInsert
+} from '../states/SortBar-actions.js';
 
 import './Main.css';
 
@@ -22,6 +27,9 @@ class Main extends React.Component {
         upperBound: PropTypes.number,         
         total: PropTypes.number,
         color: PropTypes.string,
+        algo: PropTypes.string,
+        algoClosedSym: PropTypes.string,
+        algoOpenedSym: PropTypes.string,
         dispatch: PropTypes.func
     };
 
@@ -41,24 +49,34 @@ class Main extends React.Component {
         this.randomize = this.randomize.bind(this);
         this.shuffle = this.shuffle.bind(this);
         this.set = this.set.bind(this);
+
+        this.changeToInsert = this.changeToInsert.bind(this);
     }
 
     render() {
-        const {arrayBar, arrayStr, lowerBound, upperBound, total, color} = this.props;
+        const {arrayBar, arrayStr, lowerBound, upperBound, total, color, algo, algoClosedSym, algoOpenedSym} = this.props;
 
         return (
             <Router>
                 <div className='main'>                    
                     <div className='left'>
-                        <button className='navBut' id='leftButt' onClick={() => this.toggleAlgo()}>+</button>
+                        <button className='navBut' id='leftButt' onClick={() => this.toggleAlgo()}>{algoClosedSym}</button>
+                        {
+                            algo == 'insert' && 
+                            <div className='navButSubtitle'>
+                                Insertion Sort
+                            </div>
+                        }
                         
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='insert hiddenLeft'>
-                                <button className='algoBut'>I.S</button>
+                        <Link to='/insertion-sort' onClick={() => this.changeToInsert()}>
+                            <div className="btnContainer">
+                                <div className='insert hiddenLeft'>
+                                    <button className='algoBut'>I.S</button>
+                                </div>
+                                <span className='insertTitle'>Insertion Sort</span>
                             </div>
-                            <span className='insertTitle'>Insertion Sort</span>
-                        </div>
+                        </Link>
 
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
                         <div className="btnContainer">
@@ -222,6 +240,9 @@ class Main extends React.Component {
                 <Route exact path="/" render={() => (                    
                         <Home />                        
                 )}/>
+                <Route exact path="/insertion-sort" render={() => (                    
+                        <InsertionSort />                        
+                )}/>                
             </Router>
         )
     }
@@ -230,7 +251,13 @@ class Main extends React.Component {
         const arrHidden = document.getElementsByClassName('hiddenLeft');
         const button = document.getElementById('leftButt');
 
-        button.textContent = button.textContent == '+' ? '-' : '+';
+        if(this.props.algo !== 'home' && button.innerHTML == this.props.algoOpenedSym) {
+            window.location.href = '/';         
+            return
+        }        
+
+        button.textContent = button.textContent == `${this.props.algoClosedSym}` ? `${this.props.algoOpenedSym}` : `${this.props.algoClosedSym}`;
+        if(button.textContent == this.props.algoOpenedSym && this.props.algo !== 'home') document.getElementById('leftButt').innerHTML = this.props.algoOpenedSym;
 
         for(let item of arrHidden) {                          
             item.classList.toggle('showLeft');
@@ -377,8 +404,22 @@ class Main extends React.Component {
         this.fillColorWithVal(min, max);
         this.props.dispatch(changeColor('#BBECFF'));
     }
+
+    changeToInsert() {        
+        const arrHidden = document.getElementsByClassName('hiddenLeft');
+        for(let item of arrHidden) {                          
+            let itemClassArr = item.className.split(' ');
+            item.className = `${itemClassArr[0]} hiddenLeft`;
+        }         
+
+        this.props.dispatch(setToInsert());        
+
+        const button = document.getElementById('leftButt');
+        button.textContent = `${this.props.algoClosedSym}`;
+    }
 }
 
 export default connect(state => ({
     ...state.sortBar,
+    ...state.algo,
 }))(Main);
