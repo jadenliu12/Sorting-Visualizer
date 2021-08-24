@@ -101,6 +101,9 @@
 
 .insert:hover + .insertTitle {
     display: inline-block;
+    position: absolute;
+    top: 105px;
+    left: 60px;
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
@@ -119,6 +122,9 @@
 
 .selection:hover + .selectionTitle {
     display: inline-block;
+    position: absolute;
+    top: 198px;
+    left: 60px;
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
@@ -137,6 +143,9 @@
 
 .bubble:hover + .bubbleTitle {
     display: inline-block;
+    position: absolute;
+    top: 288px;
+    left: 60px;
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
@@ -155,6 +164,9 @@
 
 .quick:hover + .quickTitle {
     display: inline-block;
+    position: absolute;
+    top: 377px;
+    left: 60px;
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
@@ -173,6 +185,9 @@
 
 .merge:hover + .mergeTitle {
     display: inline-block;
+    position: absolute;
+    top: 468px;
+    left: 60px;
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
@@ -191,6 +206,9 @@
 
 .heap:hover + .heapTitle {
     display: inline-block;
+    position: absolute;
+    top: 558px;
+    left: 60px;
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
@@ -209,6 +227,9 @@
 
 .radix:hover + .radixTitle {
     display: inline-block;
+    position: absolute;
+    top: 648px;
+    left: 60px;
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
@@ -227,6 +248,9 @@
 
 .bucket:hover + .bucketTitle {
     display: inline-block;
+    position: absolute;
+    top: 738px;
+    left: 60px;
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
