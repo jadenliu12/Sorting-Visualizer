@@ -67,9 +67,14 @@ class SortBar extends React.Component {
                 <div className="sortBarContainer">
                     {children}
                 </div>
-                <button type='button' className='button' onClick={() => this.sort()}>
-                    <span className='innerButton'>SORT</span>
-                </button>                
+                <div className="botContainer">
+                    <div className="movesContainer" id="movesContainer"> 
+                        <div>&nbsp;</div>               
+                    </div>
+                    <button type='button' className='button' onClick={() => this.sort()}>
+                        <span className='innerButton'>SORT</span>
+                    </button>    
+                </div>
             </div>
         )
     }
@@ -77,18 +82,22 @@ class SortBar extends React.Component {
     sort() {
         if(!this.check()) {
             var animations = insertionSort(this.props.arrayBar, this.props.total);
+            const moves = document.getElementById("movesContainer");
 
             for (let i = 0; i < animations.length; i++) {
                 const arrayBars = document.getElementsByClassName('array-bar');            
                 const isColorChange = i % 3 !== 2;
+
                 if (isColorChange) {
-                    const [barOneIdx, barTwoIdx] = animations[i];
+                    const [barOneIdx, barTwoIdx] = animations[i].arr;
                     const barOneStyle = arrayBars[barOneIdx].style;
                     const barTwoStyle = arrayBars[barTwoIdx].style;
                     const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
                     setTimeout(() => {
                         barOneStyle.backgroundColor = color;
                         barTwoStyle.backgroundColor = color;
+                        moves.innerHTML += `<div>${animations[i].message}</div>`;
+                        moves.scrollTop = moves.scrollHeight;
 
                         if(i === animations.length-1)
                             this.sorted();
@@ -96,22 +105,30 @@ class SortBar extends React.Component {
                 } 
                 else {
                     setTimeout(() => {
-                        const [barOneIdx, newHeight] = animations[i];
+                        const [barOneIdx, newHeight] = animations[i].arr;
                         const barOneStyle = arrayBars[barOneIdx].style;
-                        barOneStyle.height = `${newHeight}px`;
+                        barOneStyle.height = `${newHeight}px`;  
+                        barOneStyle.backgroundColor = `${TERTIARY_COLOR}`;
+                        moves.innerHTML += `<div>${animations[i].message}</div>`;        
+                        moves.scrollTop = moves.scrollHeight;            
 
                         if(i === animations.length-1)
                             this.sorted();                
                     }, i * SORT_SPEED);
-                }
+                }                
             } 
         }   
     }
 
     sorted() {
         const arrayBars = document.getElementsByClassName('array-bar');
+        const moves = document.getElementById("movesContainer");
+
         for(let item of arrayBars)
             item.style.backgroundColor = SORTED_COLOR;
+            
+        moves.innerHTML += '<div>Finished</div>';
+        moves.scrollTop = moves.scrollHeight;            
         this.props.dispatch(changeColor(SORTED_COLOR));
     }
 

@@ -252,7 +252,7 @@ class Main extends React.Component {
         const button = document.getElementById('leftButt');
 
         if(this.props.algo !== 'home' && button.innerHTML == this.props.algoOpenedSym) {
-            window.location.href = '/';         
+            window.location.href = '/'; 
             return
         }        
 
