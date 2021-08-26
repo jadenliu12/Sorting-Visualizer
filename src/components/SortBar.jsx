@@ -30,6 +30,9 @@ class SortBar extends React.Component {
         upperBound: PropTypes.number,        
         total: PropTypes.number,
         color: PropTypes.string,
+        algo: PropTypes.string,
+        algoClosedSym: PropTypes.string,
+        algoOpenedSym: PropTypes.string,        
         dispatch: PropTypes.func
     };
 
@@ -46,7 +49,7 @@ class SortBar extends React.Component {
     }
 
     render() {
-        const {arrayBar, arrayStr, lowerBound, upperBound, total, color} = this.props;
+        const {arrayBar, arrayStr, lowerBound, upperBound, total, color, algo, algoClosedSym, algoOpenedSym} = this.props;
         
         let children = (<div></div>);
         if (arrayBar.length) {
@@ -68,9 +71,14 @@ class SortBar extends React.Component {
                     {children}
                 </div>
                 <div className="botContainer">
-                    <div className="movesContainer" id="movesContainer"> 
-                        <div>&nbsp;</div>               
-                    </div>
+                    {
+                        algo !== 'home' &&
+                        <div className="movesWrapper" id="movesWrapper">
+                            <p className="movesTitle">Current Move:</p>
+                            <div className="movesContainer" id="movesContainer"> 
+                            </div>
+                        </div>
+                    }
                     <button type='button' className='button' onClick={() => this.sort()}>
                         <span className='innerButton'>SORT</span>
                     </button>    
@@ -83,6 +91,8 @@ class SortBar extends React.Component {
         if(!this.check()) {
             var animations = insertionSort(this.props.arrayBar, this.props.total);
             const moves = document.getElementById("movesContainer");
+            const wrapper = document.getElementById("movesWrapper")
+            wrapper.style.display = 'block';
 
             for (let i = 0; i < animations.length; i++) {
                 const arrayBars = document.getElementsByClassName('array-bar');            
@@ -152,4 +162,5 @@ class SortBar extends React.Component {
 
 export default connect(state => ({
     ...state.sortBar,
+    ...state.algo,
 }))(SortBar);
