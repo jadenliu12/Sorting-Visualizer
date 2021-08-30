@@ -42,6 +42,10 @@ class SortBar extends React.Component {
         this.sort = this.sort.bind(this);
         this.sorted = this.sorted.bind(this);
         this.checkArray = this.checkArray.bind(this);
+
+        this.addClass = this.addClass.bind(this);
+        this.removeClass = this.removeClass.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount() {
@@ -75,7 +79,7 @@ class SortBar extends React.Component {
                         algo !== 'home' &&
                         <div className="movesWrapper" id="movesWrapper">
                             <p className="movesTitle">Current Move:</p>
-                            <div className="movesContainer" id="movesContainer"> 
+                            <div className="movesContainer" id="movesContainer" onScroll={() => this.handleScroll()}> 
                             </div>
                         </div>
                     }
@@ -85,7 +89,7 @@ class SortBar extends React.Component {
                 </div>
             </div>
         )
-    }
+    } 
 
     sort() {
         if(!this.check()) {
@@ -107,7 +111,7 @@ class SortBar extends React.Component {
                     setTimeout(() => {
                         barOneStyle.backgroundColor = color;
                         barTwoStyle.backgroundColor = color;
-                        moves.innerHTML += `<div>${animations[i].message}</div>`;
+                        moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
                         moves.scrollTop = moves.scrollHeight;
 
                         if(i === animations.length-1)
@@ -120,7 +124,7 @@ class SortBar extends React.Component {
                         const barOneStyle = arrayBars[barOneIdx].style;
                         barOneStyle.height = `${newHeight}px`;  
                         barOneStyle.backgroundColor = `${TERTIARY_COLOR}`;
-                        moves.innerHTML += `<div>${animations[i].message}</div>`;        
+                        moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;        
                         moves.scrollTop = moves.scrollHeight;            
 
                         if(i === animations.length-1)
@@ -138,7 +142,7 @@ class SortBar extends React.Component {
         for(let item of arrayBars)
             item.style.backgroundColor = SORTED_COLOR;
             
-        moves.innerHTML += '<div>Finished</div>';
+        moves.innerHTML += '<div class="moves">Finished</div>';
         moves.scrollTop = moves.scrollHeight;            
         this.props.dispatch(changeColor(SORTED_COLOR));
     }
@@ -158,6 +162,36 @@ class SortBar extends React.Component {
         }
 
         return true;
+    }
+
+    addClass = function(el,cl) {
+        var re = new RegExp('(^|\\s)'+cl+'(\\s|$)');
+        if (!el.className.match(re)) el.className += " "+cl;
+    };
+         
+    removeClass = function(el,cl) {
+        var re = new RegExp('(^|\\s)'+cl+'(\\s|$)');
+        if (el.className.match(re))
+        el.className=el.className.replace(re,' ');
+    };    
+
+    handleScroll() {        
+        const moves = document.querySelectorAll('div.moves');
+        const container = document.getElementById('movesContainer');
+
+        const topLimit = container.scrollTop + 10;
+        const botLimit = container.scrollTop + 150;
+
+        for(let item of moves) {
+            var thisTop = (item.style.top || item.style.pixelTop || item.offsetTop || 0) - (window.pageXOffset ? window.pageYOffset : document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);        
+            console.log(`thisTop: ${thisTop}\ntopLimit: ${topLimit}\nbotLimit: ${botLimit}\nthisOff: ${(item.offsetHeight || item.clipHeight || 0)}\ncontent: ${item.textContent}`);
+            if (thisTop >= topLimit && (thisTop + (item.offsetHeight || item.clipHeight || 0)) <= botLimit) {                
+                this.addClass(item,'highlight');
+            } 
+            else {
+		        this.removeClass(item,'highlight');
+           }
+        }    
     }
 }
 
