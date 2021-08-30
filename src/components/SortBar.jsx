@@ -91,7 +91,8 @@ class SortBar extends React.Component {
         if(!this.check()) {
             var animations = insertionSort(this.props.arrayBar, this.props.total);
             const moves = document.getElementById("movesContainer");
-            const wrapper = document.getElementById("movesWrapper")
+            const wrapper = document.getElementById("movesWrapper");
+
             wrapper.style.display = 'block';
 
             for (let i = 0; i < animations.length; i++) {

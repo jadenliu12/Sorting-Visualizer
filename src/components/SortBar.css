@@ -22,7 +22,7 @@
 .sortBar .botContainer {
     display: flex;
     position: absolute;
-    bottom: 5vh;
+    bottom: 2vh;
     justify-content: center;
     flex-direction: row;
 }
@@ -32,6 +32,7 @@
 }
 .sortBar .botContainer .movesWrapper .movesTitle {
     font-weight: bold;
+    color: #707070;
 }
 
 .sortBar .botContainer .movesWrapper .movesContainer {
@@ -88,6 +89,7 @@
     height: auto;
     line-height: 1;
     margin: 0;
+    margin-top: 42px;
     padding: 0;
     text-align: center;
     text-decoration: none;
