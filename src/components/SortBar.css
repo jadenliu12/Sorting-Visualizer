@@ -58,6 +58,11 @@
     flex: none;
 }
 
+.highlight {
+    background-color: #707070;
+    color: #FFFFFF;
+}
+
 .movesContainer::-webkit-scrollbar {
     width: 0px;
 }

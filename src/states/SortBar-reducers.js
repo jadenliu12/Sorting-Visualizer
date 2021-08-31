@@ -7,7 +7,12 @@ const initSortBarState = {
     lowerBound: 100,
     upperBound: 500,
     total: 10,
-    color: '#BBECFF'
+    color: {
+        primary: '#BBECFF',
+        secondary: '#FF7878',
+        tertiary: '#FFD83E',
+        done: '#88FFB8'
+    }
 }
 
 export function sortBar(state = initSortBarState, action) {
@@ -58,11 +63,38 @@ export function sortBar(state = initSortBarState, action) {
                 ...state,
                 upperBound: action.val
             }; 
-        case '@SORT_BAR/CHANGE_COLOR':
+        case '@SORT_BAR/CHANGE_COLOR_PRIMARY':
             return {
                 ...state,
-                color: action.color,
-            };            
+                color: {
+                    ...state.color,
+                    primary: action.color
+                }                    
+            };     
+        case '@SORT_BAR/CHANGE_COLOR_SECONDARY':
+            return {
+                ...state,
+                color: {
+                    ...state.color,
+                    secondary: action.color
+                }                    
+            };
+        case '@SORT_BAR/CHANGE_COLOR_TERTIARY':
+            return {
+                ...state,
+                color: {
+                    ...state.color,
+                    tertiary: action.color
+                }                    
+            };
+        case '@SORT_BAR/CHANGE_COLOR_DONE':
+            return {
+                ...state,
+                color: {
+                    ...state.color,
+                    done: action.color
+                }                    
+            };                                           
         default:
             return state;        
     }

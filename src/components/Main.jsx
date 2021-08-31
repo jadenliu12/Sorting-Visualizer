@@ -13,7 +13,7 @@ import InsertionSort from './InsertionSort.jsx';
 
 //redux
 import {
-    set, setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB, changeColor,
+    set, setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB, changeColorPrimary, changeColorSecondary, changeColorTertiary, changeColorDone,
     setToHome, setToInsert
 } from '../states/SortBar-actions.js';
 
@@ -26,7 +26,7 @@ class Main extends React.Component {
         lowerBound: PropTypes.number,
         upperBound: PropTypes.number,         
         total: PropTypes.number,
-        color: PropTypes.string,
+        color: PropTypes.object,
         algo: PropTypes.string,
         algoClosedSym: PropTypes.string,
         algoOpenedSym: PropTypes.string,
@@ -40,12 +40,19 @@ class Main extends React.Component {
         this.toggleRight = this.toggleRight.bind(this);
         this.toggleInput = this.toggleInput.bind(this);
         this.toggleSetting = this.toggleSetting.bind(this);
+
         this.onChangeNumber = this.onChangeNumber.bind(this);
         this.onChangeArrText = this.onChangeArrText.bind(this);
-        this.onChangeSliderOne = this.onChangeSliderOne.bind(this);
+        this.onChangeSliderOne = this.onChangeSliderOne.bind(this);        
         this.onChangeSliderTwo = this.onChangeSliderTwo.bind(this);
+        this.onChangeColorPrimary = this.onChangeColorPrimary.bind(this);
+        this.onChangeColorSecondary = this.onChangeColorSecondary.bind(this);
+        this.onChangeColorTertiary = this.onChangeColorTertiary.bind(this);
+        this.onChangeColorDone = this.onChangeColorDone.bind(this);
+
         this.fillColor = this.fillColor.bind(this);
         this.fillColorWithVal = this.fillColorWithVal.bind(this);
+
         this.randomize = this.randomize.bind(this);
         this.shuffle = this.shuffle.bind(this);
         this.set = this.set.bind(this);
@@ -206,17 +213,22 @@ class Main extends React.Component {
                             <div className='colorContainer'>
                                 <p className='SettingTitle'>Color</p>
                                 <div className='colorInputContainer'>
-                                    <input type="color" id="head" name="color" value="#BBECFF" className="colorInput" />    
+                                    <input type="color" id="head" name="color" value={color.primary} className="colorInput" onChange={(e) => this.onChangeColorPrimary(e)} />    
                                     <div className="textContainer">
                                         <label for="head" className="colorLabel"><span className="dash">-</span>Base Color</label>
                                     </div>
                                     <br />
-                                    <input type="color" id="head" name="color" value="#FF7878" className="colorInput" />
+                                    <input type="color" id="head" name="color" value={color.secondary} className="colorInput" onChange={(e) => this.onChangeColorSecondary(e)} />
                                     <div className="textContainer">
                                         <label for="head" className="colorLabel"><span className="dash">-</span>Selected (1) Color</label>
                                     </div>
-                                    <br />                                
-                                    <input type="color" id="head" name="color" value="#88FFB8" className="colorInput" />
+                                    <br />    
+                                    <input type="color" id="head" name="color" value={color.tertiary} className="colorInput" onChange={(e) => this.onChangeColorTertiary(e)} />
+                                    <div className="textContainer">
+                                        <label for="head" className="colorLabel"><span className="dash">-</span>Selected (2) Color</label>
+                                    </div>
+                                    <br />                                                                    
+                                    <input type="color" id="head" name="color" value={color.done} className="colorInput" onChange={(e) => this.onChangeColorDone(e)} />
                                     <div className="textContainer">
                                         <label for="head" className="colorLabel"><span className="dash">-</span>Finished Color</label>                                                                
                                     </div>
@@ -363,6 +375,22 @@ class Main extends React.Component {
         this.fillColor();        
     }
 
+    onChangeColorPrimary(e) {
+        this.props.dispatch(changeColorPrimary(e.target.value));
+    }
+
+    onChangeColorSecondary(e) {
+        this.props.dispatch(changeColorSecondary(e.target.value));
+    }
+    
+    onChangeColorTertiary(e) {
+        this.props.dispatch(changeColorTertiary(e.target.value));
+    }
+    
+    onChangeColorDone(e) {
+        this.props.dispatch(changeColorDone(e.target.value));
+    }    
+
     fillColor() {
         let sliderOne = document.getElementById("slider-1");
         let sliderTwo = document.getElementById("slider-2"); 
@@ -383,12 +411,12 @@ class Main extends React.Component {
 
     randomize() {
         this.props.dispatch(setArray(this.props.lowerBound, this.props.upperBound, this.props.total));
-        this.props.dispatch(changeColor('#BBECFF'));
+        this.props.dispatch(changeColorPrimary('#BBECFF'));
     }
 
     shuffle() {
         this.props.dispatch(shuffleArray(this.props.arrayBar));
-        this.props.dispatch(changeColor('#BBECFF'));
+        this.props.dispatch(changeColorPrimary('#BBECFF'));
     }
 
     set() {
@@ -402,7 +430,7 @@ class Main extends React.Component {
 
         this.props.dispatch(set(arr, min, max, sep));
         this.fillColorWithVal(min, max);
-        this.props.dispatch(changeColor('#BBECFF'));
+        this.props.dispatch(changeColorPrimary('#BBECFF'));
     }
 
     changeToInsert() {        

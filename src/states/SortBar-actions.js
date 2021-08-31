@@ -53,9 +53,30 @@ export function changeUB(val) {
     }
 }
 
-export function changeColor(color) {
+export function changeColorPrimary(color) {
     return {
-        type: '@SORT_BAR/CHANGE_COLOR',
+        type: '@SORT_BAR/CHANGE_COLOR_PRIMARY',
+        color,
+    }
+}
+
+export function changeColorSecondary(color) {
+    return {
+        type: '@SORT_BAR/CHANGE_COLOR_SECONDARY',
+        color,
+    }
+}
+
+export function changeColorTertiary(color) {
+    return {
+        type: '@SORT_BAR/CHANGE_COLOR_TERTIARY',
+        color,
+    }
+}
+
+export function changeColorDone(color) {
+    return {
+        type: '@SORT_BAR/CHANGE_COLOR_DONE',
         color,
     }
 }
