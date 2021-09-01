@@ -81,6 +81,12 @@ export function changeColorDone(color) {
     }
 }
 
+export function changeToSorted() {
+    return {
+        type: '@SORT_BAR/CHANGE_TO_SORTED',
+    }
+}
+
 // Algo Actions
 export function setToHome() {
     return {

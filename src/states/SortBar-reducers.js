@@ -7,6 +7,7 @@ const initSortBarState = {
     lowerBound: 100,
     upperBound: 500,
     total: 10,
+    sorted: false,
     color: {
         primary: '#BBECFF',
         secondary: '#FF7878',
@@ -23,8 +24,9 @@ export function sortBar(state = initSortBarState, action) {
                 arrayBar: action.arr.map(val => parseInt(val)),
                 arrayStr: action.arr.join(action.separator),
                 lowerBound: action.start,
-                upperBound: action.end,                
+                upperBound: action.end,                                
                 total: action.arr.length,
+                sorted: false,
             };        
         case '@SORT_BAR/SET_ARRAY':
             const arr = randomNumberGenerator(action.start, action.end, action.num);
@@ -34,7 +36,8 @@ export function sortBar(state = initSortBarState, action) {
                 arrayStr: arr.join(','),
                 lowerBound: action.start,
                 upperBound: action.end,                
-                total: action.num
+                total: action.num,
+                sorted: false,                  
             };
         case '@SORT_BAR/SHUFFLE_ARRAY':
             const shuffledArr = shuffleArray(action.arr);
@@ -42,6 +45,7 @@ export function sortBar(state = initSortBarState, action) {
                 ...state,
                 arrayBar: shuffledArr,
                 arrayStr: shuffledArr.join(','),
+                sorted: false,
             };        
         case '@SORT_BAR/CHANGE_TOTAL':            
             return {
@@ -90,11 +94,26 @@ export function sortBar(state = initSortBarState, action) {
         case '@SORT_BAR/CHANGE_COLOR_DONE':
             return {
                 ...state,
+                sorted: true,
                 color: {
                     ...state.color,
                     done: action.color
                 }                    
-            };                                           
+            };      
+        case '@SORT_BAR/CHANGE_COLOR_DONE':
+            return {
+                ...state,
+                sorted: true,
+                color: {
+                    ...state.color,
+                    done: action.color
+                }                    
+            };       
+        case '@SORT_BAR/CHANGE_TO_SORTED':
+            return {
+                ...state,
+                sorted: true,                
+            };                                                                        
         default:
             return state;        
     }

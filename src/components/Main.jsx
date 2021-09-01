@@ -410,13 +410,17 @@ class Main extends React.Component {
     }
 
     randomize() {
+        const wrapper = document.getElementById("movesWrapper");
+        wrapper.style.display = 'none';
+        
         this.props.dispatch(setArray(this.props.lowerBound, this.props.upperBound, this.props.total));
-        this.props.dispatch(changeColorPrimary('#BBECFF'));
     }
 
-    shuffle() {
+    shuffle() {     
+        const wrapper = document.getElementById("movesWrapper");
+        wrapper.style.display = 'none';
+        
         this.props.dispatch(shuffleArray(this.props.arrayBar));
-        this.props.dispatch(changeColorPrimary('#BBECFF'));
     }
 
     set() {
@@ -428,9 +432,11 @@ class Main extends React.Component {
         const min = Math.min.apply(null, arr);
         const max = Math.max.apply(null, arr);
 
+        const wrapper = document.getElementById("movesWrapper");
+        wrapper.style.display = 'none';        
+
         this.props.dispatch(set(arr, min, max, sep));
         this.fillColorWithVal(min, max);
-        this.props.dispatch(changeColorPrimary('#BBECFF'));
     }
 
     changeToInsert() {        

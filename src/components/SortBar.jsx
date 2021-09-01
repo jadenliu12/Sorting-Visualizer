@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {insertionSort} from '../utilities/InsertionSort.js';
 
 //redux
-import {setArray, changeColorDone} from '../states/SortBar-actions.js';
+import {setArray, changeColorDone, changeToSorted} from '../states/SortBar-actions.js';
 
 import './SortBar.css';
 
@@ -24,6 +24,7 @@ class SortBar extends React.Component {
         lowerBound: PropTypes.number,
         upperBound: PropTypes.number,        
         total: PropTypes.number,
+        sorted: PropTypes.bool,
         color: PropTypes.Object,
         algo: PropTypes.string,
         algoClosedSym: PropTypes.string,
@@ -32,7 +33,7 @@ class SortBar extends React.Component {
     };
 
     constructor(props) {
-        super(props)
+        super(props);
         
         this.sort = this.sort.bind(this);
         this.sorted = this.sorted.bind(this);
@@ -48,7 +49,7 @@ class SortBar extends React.Component {
     }
 
     render() {
-        const {arrayBar, arrayStr, lowerBound, upperBound, total, color, algo, algoClosedSym, algoOpenedSym} = this.props;
+        const {arrayBar, arrayStr, lowerBound, upperBound, total, sorted, color, algo, algoClosedSym, algoOpenedSym} = this.props;
         
         let children = (<div></div>);
         if (arrayBar.length) {
@@ -57,7 +58,7 @@ class SortBar extends React.Component {
                     className='array-bar' 
                     key={idx}
                     style={{
-                        backgroundColor: color.primary,
+                        backgroundColor: sorted ? color.done : color.primary,
                         height: `${val}px`,
                     }}
                 />
@@ -71,7 +72,6 @@ class SortBar extends React.Component {
                 </div>
                 <div className="botContainer">
                     {
-                        algo !== 'home' &&
                         <div className="movesWrapper" id="movesWrapper">
                             <p className="movesTitle">Current Move:</p>
                             <div className="movesContainer" id="movesContainer" onScroll={() => this.handleScroll()}> 
@@ -87,8 +87,8 @@ class SortBar extends React.Component {
     } 
 
     sort() {
-        if(!this.check()) {
-            var animations = insertionSort(this.props.arrayBar, this.props.total);
+        if(!this.props.sorted) {            
+            var animations = insertionSort(this.props.arrayBar, this.props.total);            
             const moves = document.getElementById("movesContainer");
             const wrapper = document.getElementById("movesWrapper");
 
@@ -127,7 +127,7 @@ class SortBar extends React.Component {
                     }, i * SORT_SPEED);
                 }                
             } 
-        }   
+        } 
     }
 
     sorted() {
@@ -138,8 +138,8 @@ class SortBar extends React.Component {
             item.style.backgroundColor = this.props.color.done;
             
         moves.innerHTML += '<div class="moves">Finished</div>';
-        moves.scrollTop = moves.scrollHeight;            
-        this.props.dispatch(changeColorDone(this.props.color.done));
+        moves.scrollTop = moves.scrollHeight;        
+        this.props.dispatch(changeColorDone(this.props.color.done));        
     }
 
     check() {
@@ -179,7 +179,6 @@ class SortBar extends React.Component {
 
         for(let item of moves) {
             var thisTop = (item.style.top || item.style.pixelTop || item.offsetTop || 0) - (window.pageXOffset ? window.pageYOffset : document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);        
-            console.log(`thisTop: ${thisTop}\ntopLimit: ${topLimit}\nbotLimit: ${botLimit}\nthisOff: ${(item.offsetHeight || item.clipHeight || 0)}\ncontent: ${item.textContent}`);
             if (thisTop >= topLimit && (thisTop + (item.offsetHeight || item.clipHeight || 0)) <= botLimit) {                
                 this.addClass(item,'highlight');
             } 
