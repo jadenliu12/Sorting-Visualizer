@@ -7,10 +7,10 @@
     font-size: 30PX;
     font-weight: bold;
     border-radius: 50%;
-    border: 3px solid #707070;
-    background-color: #FFFFFF;
+    border: 3px solid var(--border-color);
+    background-color: var(--bkg-color);
     outline: none;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .navButSubtitle  {
@@ -19,7 +19,7 @@
     left: 65px;
     font-size: 30PX;
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .algoBut {     
@@ -29,10 +29,10 @@
     font-size: 20px;
     font-weight: bold;
     border-radius: 50%;
-    border: 3px solid #707070;
-    background-color: #FFFFFF;
+    border: 3px solid var(--border-color);
+    background-color: var(--bkg-color);
     outline: none;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .inSetBut {
@@ -42,16 +42,16 @@
     font-size: 25px;
     font-weight: bold;
     border-radius: 50%;
-    border: 3px solid #707070;
-    background-color: #FFFFFF;
+    border: 3px solid var(--border-color);
+    background-color: var(--bkg-color);
     outline: none;
-    color: #707070;    
+    color: var(--text-color);    
 }
 
 .vertLine {
     width: 25px;
     height: 40px;
-    border-right: 3px solid #707070;
+    border-right: 3px solid var(--border-color);
 }
 
 /* ================= Button Toggle CSS ==================== */
@@ -116,7 +116,7 @@
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .insert:hover {
@@ -137,7 +137,7 @@
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .selection:hover {
@@ -158,7 +158,7 @@
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .bubble:hover {
@@ -179,7 +179,7 @@
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .quick:hover {
@@ -200,7 +200,7 @@
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .merge:hover {
@@ -221,7 +221,7 @@
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .heap:hover {
@@ -242,7 +242,7 @@
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .radix:hover {
@@ -263,7 +263,7 @@
     margin-left: 5px;
     font-size: 23px;
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .bucket:hover {
@@ -277,8 +277,8 @@
     right: 10px;
     bottom: 10px;
     width: 350px;
-    border: 3px solid #707070;
-    color: #707070;
+    border: 3px solid var(--border-color);
+    color: var(--text-color);
     z-index: 999;
 }
 
@@ -317,7 +317,7 @@
 .numOfInput::-webkit-inner-spin-button, 
 .numOfInput::-webkit-outer-spin-button {  
    opacity: 1;
-   background-color: #FFFFFF;
+   background-color: var(--bkg-color);
 }
 
 .numOfInput {
@@ -342,8 +342,8 @@
 .inputBut {
     width: 120px;
     margin: 0 5px;
-    background-color: #FFFFFF;
-    border: 3px solid #707070;
+    background-color: var(--bkg-color);
+    border: 3px solid var(--border-color);
     border-radius: 10px;
     outline: none;
 }
@@ -351,8 +351,8 @@
 .setBut {
     width: 70px;
     margin: 0 5px;
-    background-color: #FFFFFF;
-    border: 3px solid #707070;
+    background-color: var(--bkg-color);
+    border: 3px solid var(--border-color);
     border-radius: 10px;
     outline: none;
 }
@@ -365,15 +365,15 @@
     display: inline-block;
     width: 8.5px;
     height: 15px;
-    border-bottom: 3px solid #707070;
+    border-bottom: 3px solid var(--border-color);
 }
 
 .speedBut {
     display: inline-block;
     width: 60px;
     height: 60px;
-    background-color: #FFFFFF;
-    border: 3px solid #707070;
+    background-color: var(--bkg-color);
+    border: 3px solid var(--border-color);
     border-radius: 50%;
     outline: none;
 }
@@ -454,8 +454,8 @@ input[type="range"]::-ms-thumb{
     pointer-events: auto;
 }
 input[type="range"]:active::-webkit-slider-thumb{
-    background-color: #ffffff;
-    border: 3px solid #707070;
+    background-color: var(--bkg-color);
+    border: 3px solid var(--border-color);
 }
 
 .sliderValue {
@@ -512,7 +512,7 @@ input[type="range"]:active::-webkit-slider-thumb{
     width: 15px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: var(--bkg-color);
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -549,8 +549,8 @@ input:checked + .slider:before {
     right: 10px;
     bottom: 10px;
     width: 295px;
-    border: 3px solid #707070;
-    color: #707070;
+    border: 3px solid var(--border-color);
+    color: var(--text-color);
     z-index: 999;
 }
 

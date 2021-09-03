@@ -42,6 +42,7 @@ class Main extends React.Component {
         this.toggleRight = this.toggleRight.bind(this);
         this.toggleInput = this.toggleInput.bind(this);
         this.toggleSetting = this.toggleSetting.bind(this);
+        this.toggleMode = this.toggleMode.bind(this);
 
         this.onChangeNumber = this.onChangeNumber.bind(this);
         this.onChangeArrText = this.onChangeArrText.bind(this);
@@ -242,7 +243,7 @@ class Main extends React.Component {
                                 <p className='SettingTitle'>Mode</p>
                                 <div className="switchContainer">
                                     <div className='switch'>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" onClick={() => this.toggleMode()} />
                                         <span class="slider round"></span>
                                     </div>
                                     <label className="switchLabel">Light/Dark Mode</label>
@@ -345,6 +346,11 @@ class Main extends React.Component {
         this.onChangeSliderOne();
         this.onChangeSliderTwo();
     }    
+
+    toggleMode() {
+        const bodyDOM = document.body;
+        bodyDOM.classList.toggle('dark-theme');
+    }
     
     onChangeNumber(e) {            
         this.props.dispatch(changeTotal(e.target.value));

@@ -32,7 +32,7 @@
 }
 .sortBar .botContainer .movesWrapper .movesTitle {
     font-weight: bold;
-    color: #707070;
+    color: var(--text-color);
 }
 
 .sortBar .botContainer .movesWrapper .movesContainer {
@@ -51,7 +51,7 @@
     height: 58.500px;
     width: 80%;
     margin: 10px auto;
-    border: 2px solid #707070;
+    border: 2px solid var(--border-color);
     border-radius: 99em;
     text-align: center;
     scroll-snap-align: center;
@@ -103,9 +103,9 @@
 
 .sortBar .botContainer .button .innerButton {
     align-items: center;    
-    border: 2px solid #707070;
+    border: 2px solid var(--border-color);
     border-radius: 99em;
-    color: #707070;
+    color: var(--text-color);
     display: flex;
     font-weight: 600;
     font-size: 25px;
