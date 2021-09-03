@@ -53,6 +53,13 @@ export function changeUB(val) {
     }
 }
 
+export function changeSpeed(val) {
+    return {
+        type: '@SORT_BAR/CHANGE_SPEED',
+        val,
+    }
+}
+
 export function changeColorPrimary(color) {
     return {
         type: '@SORT_BAR/CHANGE_COLOR_PRIMARY',

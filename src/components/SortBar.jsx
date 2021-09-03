@@ -25,6 +25,7 @@ class SortBar extends React.Component {
         upperBound: PropTypes.number,        
         total: PropTypes.number,
         sorted: PropTypes.bool,
+        speed: PropTypes.number,
         color: PropTypes.Object,
         algo: PropTypes.string,
         algoClosedSym: PropTypes.string,
@@ -49,7 +50,7 @@ class SortBar extends React.Component {
     }
 
     render() {
-        const {arrayBar, arrayStr, lowerBound, upperBound, total, sorted, color, algo, algoClosedSym, algoOpenedSym} = this.props;
+        const {arrayBar, arrayStr, lowerBound, upperBound, total, sorted, speed, color, algo, algoClosedSym, algoOpenedSym} = this.props;
         
         let children = (<div></div>);
         if (arrayBar.length) {
@@ -88,6 +89,7 @@ class SortBar extends React.Component {
 
     sort() {
         if(!this.props.sorted) {            
+            console.log(`sorting at speed of ${this.props.speed}`);
             var animations = insertionSort(this.props.arrayBar, this.props.total);            
             const moves = document.getElementById("movesContainer");
             const wrapper = document.getElementById("movesWrapper");
@@ -111,7 +113,7 @@ class SortBar extends React.Component {
 
                         if(i === animations.length-1)
                             this.sorted();
-                    }, i * SORT_SPEED);
+                    }, i * (SORT_SPEED / this.props.speed));
                 } 
                 else {
                     setTimeout(() => {
@@ -124,7 +126,7 @@ class SortBar extends React.Component {
 
                         if(i === animations.length-1)
                             this.sorted();                
-                    }, i * SORT_SPEED);
+                    }, i * (SORT_SPEED / this.props.speed));
                 }                
             } 
         } 

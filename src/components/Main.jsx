@@ -13,7 +13,7 @@ import InsertionSort from './InsertionSort.jsx';
 
 //redux
 import {
-    set, setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB, changeColorPrimary, changeColorSecondary, changeColorTertiary, changeColorDone,
+    set, setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB, changeSpeed, changeColorPrimary, changeColorSecondary, changeColorTertiary, changeColorDone,
     setToHome, setToInsert
 } from '../states/SortBar-actions.js';
 
@@ -26,6 +26,8 @@ class Main extends React.Component {
         lowerBound: PropTypes.number,
         upperBound: PropTypes.number,         
         total: PropTypes.number,
+        sorted: PropTypes.bool,
+        speed: PropTypes.number,
         color: PropTypes.object,
         algo: PropTypes.string,
         algoClosedSym: PropTypes.string,
@@ -56,12 +58,13 @@ class Main extends React.Component {
         this.randomize = this.randomize.bind(this);
         this.shuffle = this.shuffle.bind(this);
         this.set = this.set.bind(this);
+        this.changeSpeed = this.changeSpeed.bind(this);
 
         this.changeToInsert = this.changeToInsert.bind(this);
     }
 
     render() {
-        const {arrayBar, arrayStr, lowerBound, upperBound, total, color, algo, algoClosedSym, algoOpenedSym} = this.props;
+        const {arrayBar, arrayStr, lowerBound, upperBound, total, sorted, speed, color, algo, algoClosedSym, algoOpenedSym} = this.props;
 
         return (
             <Router>
@@ -180,15 +183,15 @@ class Main extends React.Component {
                             <div className='speedContainer'>
                                 <p className='inputTitle'>Speed</p>
                                 <div className='butContainer'>
-                                    <button className='speedBut'>0.25x</button>
+                                    <button className='speedBut' value='0.25' onClick={(e) => this.changeSpeed(e)}>0.25x</button>
                                     <div className='horLine'>&nbsp;</div>
-                                    <button className='speedBut'>0.5x</button>
+                                    <button className='speedBut' value='0.5' onClick={(e) => this.changeSpeed(e)}>0.5x</button>
                                     <div className='horLine'>&nbsp;</div>
-                                    <button className='speedBut'>1x</button>
+                                    <button className='speedBut activeSpeed' value='1' onClick={(e) => this.changeSpeed(e)}>1x</button>
                                     <div className='horLine'>&nbsp;</div>
-                                    <button className='speedBut'>1.5x</button>
+                                    <button className='speedBut' value='1.5' onClick={(e) => this.changeSpeed(e)}>1.5x</button>
                                     <div className='horLine'>&nbsp;</div>
-                                    <button className='speedBut'>2x</button>
+                                    <button className='speedBut' value='2' onClick={(e) => this.changeSpeed(e)}>2x</button>
                                 </div>
                             </div>
                         </div>
@@ -437,6 +440,15 @@ class Main extends React.Component {
 
         this.props.dispatch(set(arr, min, max, sep));
         this.fillColorWithVal(min, max);
+    }
+
+    changeSpeed(e) {
+        const speedBut = document.getElementsByClassName('speedBut');
+        for(let item of speedBut)
+            item.className = 'speedBut';
+
+        e.target.className = 'speedBut activeSpeed';
+        this.props.dispatch(changeSpeed(Number(e.target.value)));
     }
 
     changeToInsert() {        

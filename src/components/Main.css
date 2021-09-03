@@ -378,6 +378,11 @@
     outline: none;
 }
 
+.activeSpeed {
+    background-color: #707070;
+    color: #FFFFFF;
+}
+
 /* ================= Range Slider CSS ==================== */
 
 .sliderContainer{

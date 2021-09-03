@@ -8,6 +8,7 @@ const initSortBarState = {
     upperBound: 500,
     total: 10,
     sorted: false,
+    speed: 1,
     color: {
         primary: '#BBECFF',
         secondary: '#FF7878',
@@ -67,6 +68,11 @@ export function sortBar(state = initSortBarState, action) {
                 ...state,
                 upperBound: action.val
             }; 
+        case '@SORT_BAR/CHANGE_SPEED':
+            return {
+                ...state,
+                speed: action.val
+            }
         case '@SORT_BAR/CHANGE_COLOR_PRIMARY':
             return {
                 ...state,
