@@ -73,6 +73,7 @@ class SortBar extends React.Component {
                 </div>
                 <div className="botContainer">
                     {
+                        algo != "home" &&
                         <div className="movesWrapper" id="movesWrapper">
                             <p className="movesTitle">Current Move:</p>
                             <div className="movesContainer" id="movesContainer" onScroll={() => this.handleScroll()}> 
@@ -91,10 +92,12 @@ class SortBar extends React.Component {
         if(!this.props.sorted) {            
             console.log(`sorting at speed of ${this.props.speed}`);
             var animations = insertionSort(this.props.arrayBar, this.props.total);            
+            
             const moves = document.getElementById("movesContainer");
-            const wrapper = document.getElementById("movesWrapper");
+            const wrapper = document.getElementById("movesWrapper");            
 
-            wrapper.style.display = 'block';
+            if(this.props.algo !== "home")
+                wrapper.style.display = 'block';
 
             for (let i = 0; i < animations.length; i++) {
                 const arrayBars = document.getElementsByClassName('array-bar');            
@@ -108,8 +111,11 @@ class SortBar extends React.Component {
                     setTimeout(() => {
                         barOneStyle.backgroundColor = color;
                         barTwoStyle.backgroundColor = color;
-                        moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
-                        moves.scrollTop = moves.scrollHeight;
+
+                        if(this.props.algo !== "home") {
+                            moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
+                            moves.scrollTop = moves.scrollHeight;
+                        }
 
                         if(i === animations.length-1)
                             this.sorted();
@@ -121,8 +127,11 @@ class SortBar extends React.Component {
                         const barOneStyle = arrayBars[barOneIdx].style;
                         barOneStyle.height = `${newHeight}px`;  
                         barOneStyle.backgroundColor = `${this.props.color.tertiary}`;
-                        moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;        
-                        moves.scrollTop = moves.scrollHeight;            
+
+                        if(this.props.algo !== "home") {
+                            moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
+                            moves.scrollTop = moves.scrollHeight;
+                        }                        
 
                         if(i === animations.length-1)
                             this.sorted();                
@@ -139,8 +148,11 @@ class SortBar extends React.Component {
         for(let item of arrayBars)
             item.style.backgroundColor = this.props.color.done;
             
-        moves.innerHTML += '<div class="moves">Finished</div>';
-        moves.scrollTop = moves.scrollHeight;        
+        if(this.props.algo !== "home") {
+            moves.innerHTML += '<div class="moves">Finished</div>';
+            moves.scrollTop = moves.scrollHeight;
+        }   
+             
         this.props.dispatch(changeColorDone(this.props.color.done));        
     }
 

@@ -9,11 +9,12 @@ import Main from 'components/Main.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import { sortBar, algo } from './states/SortBar-reducers.js';
+import { mode } from './states/Setting-reducers.js';
 
 window.onload = function() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const store = createStore(combineReducers({
-        sortBar, algo,
+        sortBar, algo, mode
     }), composeEnhancers(applyMiddleware(thunkMiddleware/*, loggerMiddleware*/)));
 
     ReactDOM.render(

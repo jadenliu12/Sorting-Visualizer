@@ -8,7 +8,7 @@
 
 .home h1 {
     position: absolute;
-    color: #707070;
+    color: var(--text-color);
     font-size: 50px;
     bottom: 25vh;
 }

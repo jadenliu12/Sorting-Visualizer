@@ -16,6 +16,7 @@ import {
     set, setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB, changeSpeed, changeColorPrimary, changeColorSecondary, changeColorTertiary, changeColorDone,
     setToHome, setToInsert
 } from '../states/SortBar-actions.js';
+import {changeToLight, changeToDark} from '../states/Setting-actions.js';
 
 import './Main.css';
 
@@ -32,6 +33,15 @@ class Main extends React.Component {
         algo: PropTypes.string,
         algoClosedSym: PropTypes.string,
         algoOpenedSym: PropTypes.string,
+        mode: PropTypes.string,
+        text: PropTypes.string,
+        active_text: PropTypes.string,
+        bkg: PropTypes.string,
+        active_bkg: PropTypes.string,
+        border: PropTypes.string,
+        active_border: PropTypes.string,
+        slider: PropTypes.string,
+        color_condition: PropTypes.string,
         dispatch: PropTypes.func
     };
 
@@ -295,26 +305,19 @@ class Main extends React.Component {
         const arrHidden = document.getElementsByClassName('hiddenIn');
         const inButton = document.getElementById('inBut');
         const setButton = document.getElementById('setBut');
-                
-        if(inButton.style.backgroundColor == 'rgb(255, 255, 255)' || inButton.style.backgroundColor == '') {            
-            inButton.style.backgroundColor = '#707070';
-            inButton.style.color = '#FFFFFF';
-        }
-        else {                        
-            inButton.style.backgroundColor = '#FFFFFF';
-            inButton.style.color = '#707070';
-        }
 
-        if(setButton.style.backgroundColor != 'rgb(255, 255, 255)' || setButton.style.backgroundColor == '') {
-            setButton.style.backgroundColor = '#FFFFFF';
-            setButton.style.color = '#707070';         
-            document.getElementsByClassName('hiddenSet')[0].classList = 'settingContainer hiddenSet';   
-        }
+        if(inButton.className == 'inSetBut')
+            inButton.className = 'inSetButActive';            
+        else
+            inButton.className = 'inSetBut';
+        setButton.className = 'inSetBut';            
+
+        document.getElementsByClassName('hiddenSet')[0].classList = 'settingContainer hiddenSet';   
 
         for(let item of arrHidden) {                          
             item.classList.toggle('showIn');
         }      
-        
+
         this.onChangeSliderOne();
         this.onChangeSliderTwo();
     }
@@ -324,20 +327,13 @@ class Main extends React.Component {
         const inButton = document.getElementById('inBut');
         const setButton = document.getElementById('setBut');
                 
-        if(setButton.style.backgroundColor == 'rgb(255, 255, 255)' || setButton.style.backgroundColor == '') {            
-            setButton.style.backgroundColor = '#707070';
-            setButton.style.color = '#FFFFFF';
-        }
-        else {                        
-            setButton.style.backgroundColor = '#FFFFFF';
-            setButton.style.color = '#707070';
-        }
-
-        if(inButton.style.backgroundColor != 'rgb(255, 255, 255)' || inButton.style.backgroundColor == '') {
-            inButton.style.backgroundColor = '#FFFFFF';
-            inButton.style.color = '#707070';                  
-            document.getElementsByClassName('hiddenIn')[0].classList = 'inputContainer hiddenIn';
-        }
+        if(setButton.className == 'inSetBut')
+            setButton.className = 'inSetButActive';
+        else
+            setButton.className = 'inSetBut';
+        inButton.className = 'inSetBut';                
+        
+        document.getElementsByClassName('hiddenIn')[0].classList = 'inputContainer hiddenIn';
 
         for(let item of arrHidden) {                          
             item.classList.toggle('showSet');
@@ -350,6 +346,11 @@ class Main extends React.Component {
     toggleMode() {
         const bodyDOM = document.body;
         bodyDOM.classList.toggle('dark-theme');
+
+        if(this.props.mode == 'light')
+            this.props.dispatch(changeToDark());
+        else
+            this.props.dispatch(changeToLight());
     }
     
     onChangeNumber(e) {            
@@ -407,7 +408,7 @@ class Main extends React.Component {
         
         let percent1 = (sliderOne.value / 1000) * 100;
         let percent2 = (sliderTwo.value / 1000) * 100;
-        sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #707070 ${percent1}% , #707070 ${percent2}%, #dadae5 ${percent2}%)`;        
+        sliderTrack.style.background = `linear-gradient(to right, ${this.props.slider} ${percent1}% , ${this.props.text} ${percent1}% , ${this.props.text} ${percent2}%, ${this.props.slider} ${percent2}%)`;        
     }
 
     fillColorWithVal(lb, ub) { 
@@ -415,19 +416,23 @@ class Main extends React.Component {
         
         let percent1 = (lb / 1000) * 100;
         let percent2 = (ub / 1000) * 100;
-        sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #707070 ${percent1}% , #707070 ${percent2}%, #dadae5 ${percent2}%)`;        
+        sliderTrack.style.background = `linear-gradient(to right, ${this.props.slider} ${percent1}% , ${this.props.text} ${percent1}% , ${this.props.text} ${percent2}%, ${this.props.slider} ${percent2}%)`;        
     }
 
     randomize() {
-        const wrapper = document.getElementById("movesWrapper");
-        wrapper.style.display = 'none';
+        if(this.props.algo !== "home") {
+            const wrapper = document.getElementById("movesWrapper");
+            wrapper.style.display = 'none';
+        }
         
         this.props.dispatch(setArray(this.props.lowerBound, this.props.upperBound, this.props.total));
     }
 
     shuffle() {     
-        const wrapper = document.getElementById("movesWrapper");
-        wrapper.style.display = 'none';
+        if(this.props.algo !== "home") {
+            const wrapper = document.getElementById("movesWrapper");
+            wrapper.style.display = 'none';
+        }
         
         this.props.dispatch(shuffleArray(this.props.arrayBar));
     }
@@ -441,8 +446,10 @@ class Main extends React.Component {
         const min = Math.min.apply(null, arr);
         const max = Math.max.apply(null, arr);
 
-        const wrapper = document.getElementById("movesWrapper");
-        wrapper.style.display = 'none';        
+        if(this.props.algo !== "home") {
+            const wrapper = document.getElementById("movesWrapper");
+            wrapper.style.display = 'none';
+        }    
 
         this.props.dispatch(set(arr, min, max, sep));
         this.fillColorWithVal(min, max);
@@ -474,4 +481,5 @@ class Main extends React.Component {
 export default connect(state => ({
     ...state.sortBar,
     ...state.algo,
+    ...state.mode,
 }))(Main);

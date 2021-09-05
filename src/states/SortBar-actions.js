@@ -93,7 +93,6 @@ export function changeToSorted() {
         type: '@SORT_BAR/CHANGE_TO_SORTED',
     }
 }
-
 // Algo Actions
 export function setToHome() {
     return {
