@@ -144,7 +144,49 @@ export function algo(state = initAlgoState, action) {
                 algo: 'insert',
                 algoClosedSym: 'I.S',
                 algoOpenedSym: '<i class="fas fa-home"></i>',
-            };                           
+            };
+        case '@ALGO/SET_TO_SELECT':       
+            return {
+                algo: 'select',
+                algoClosedSym: 'S.S',
+                algoOpenedSym: '<i class="fas fa-home"></i>',
+            }; 
+        case '@ALGO/SET_TO_BUBBLE':       
+            return {
+                algo: 'bubble',
+                algoClosedSym: 'B.S',
+                algoOpenedSym: '<i class="fas fa-home"></i>',
+            }; 
+        case '@ALGO/SET_TO_QUICK':       
+            return {
+                algo: 'quick',
+                algoClosedSym: 'Q.S',
+                algoOpenedSym: '<i class="fas fa-home"></i>',
+            };    
+        case '@ALGO/SET_TO_MERGE':       
+            return {
+                algo: 'merge',
+                algoClosedSym: 'M.S',
+                algoOpenedSym: '<i class="fas fa-home"></i>',
+            }; 
+        case '@ALGO/SET_TO_HEAP':       
+            return {
+                algo: 'heap',
+                algoClosedSym: 'H.S',
+                algoOpenedSym: '<i class="fas fa-home"></i>',
+            };
+        case '@ALGO/SET_TO_RADIX':       
+            return {
+                algo: 'radix',
+                algoClosedSym: 'R.S',
+                algoOpenedSym: '<i class="fas fa-home"></i>',
+            }; 
+        case '@ALGO/SET_TO_BUCKET':       
+            return {
+                algo: 'bucket',
+                algoClosedSym: 'B.S',
+                algoOpenedSym: '<i class="fas fa-home"></i>',
+            };                                                                                                
         default:
             return state;        
     }

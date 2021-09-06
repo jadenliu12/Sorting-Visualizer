@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 //algorithms
 import {insertionSort} from '../utilities/InsertionSort.js';
+import {selectionSort} from '../utilities/SelectionSort.js';
 
 //redux
 import {setArray, changeColorDone, changeToSorted} from '../states/SortBar-actions.js';
@@ -91,7 +92,12 @@ class SortBar extends React.Component {
     sort() {
         if(!this.props.sorted) {            
             console.log(`sorting at speed of ${this.props.speed}`);
-            var animations = insertionSort(this.props.arrayBar, this.props.total);            
+            var animations;
+            
+            if(this.props.algo === 'insert' || this.props.algo === 'home')
+                animations = insertionSort(this.props.arrayBar, this.props.total);
+            else if(this.props.algo === 'select')
+                animations = selectionSort(this.props.arrayBar, this.props.total);
             
             const moves = document.getElementById("movesContainer");
             const wrapper = document.getElementById("movesWrapper");            

@@ -105,3 +105,45 @@ export function setToInsert() {
         type: '@ALGO/SET_TO_INSERT',
     }
 }
+
+export function setToSelect() {
+    return {
+        type: '@ALGO/SET_TO_SELECT',
+    }
+}
+
+export function setToBubble() {
+    return {
+        type: '@ALGO/SET_TO_BUBBLE',
+    }
+}
+
+export function setToQuick() {
+    return {
+        type: '@ALGO/SET_TO_QUICK',
+    }
+}
+
+export function setToMerge() {
+    return {
+        type: '@ALGO/SET_TO_MERGE',
+    }
+}
+
+export function setToHeap() {
+    return {
+        type: '@ALGO/SET_TO_HEAP',
+    }
+}
+
+export function setToRadix() {
+    return {
+        type: '@ALGO/SET_TO_RADIX',
+    }
+}
+
+export function setToBucket() {
+    return {
+        type: '@ALGO/SET_TO_BUCKET',
+    }
+}

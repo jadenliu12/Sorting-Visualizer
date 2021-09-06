@@ -1,17 +1,17 @@
 import React from 'react';
 
-import SortBar from './SortBar.jsx';
+import SortBar from '../SortBar.jsx';
 
-import './InsertionSort.css';
+import './MergeSort.css';
 
-export default class InsertionSort extends React.Component {
+export default class MergeSort extends React.Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-            <div className='InsertionSort'>
+            <div className='MergeSort'>
                 <SortBar />                                    
             </div>
         )

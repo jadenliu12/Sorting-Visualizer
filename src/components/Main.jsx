@@ -9,12 +9,19 @@ import {connect} from 'react-redux';
 
 // Components
 import Home from './Home.jsx';
-import InsertionSort from './InsertionSort.jsx';
+import InsertionSort from './Algorithms/InsertionSort.jsx';
+import SelectionSort from './Algorithms/SelectionSort.jsx';
+import BubbleSort from './Algorithms/BubbleSort.jsx';
+import QuickSort from './Algorithms/QuickSort.jsx';
+import MergeSort from './Algorithms/MergeSort.jsx';
+import HeapSort from './Algorithms/HeapSort.jsx';
+import RadixSort from './Algorithms/RadixSort.jsx';
+import BucketSort from './Algorithms/BucketSort.jsx';
 
 //redux
 import {
     set, setArray, shuffleArray, changeTotal, changeArray, changeLB, changeUB, changeSpeed, changeColorPrimary, changeColorSecondary, changeColorTertiary, changeColorDone,
-    setToHome, setToInsert
+    setToHome, setToInsert, setToSelect, setToBubble, setToQuick, setToMerge, setToHeap, setToRadix, setToBucket
 } from '../states/SortBar-actions.js';
 import {changeToLight, changeToDark} from '../states/Setting-actions.js';
 
@@ -72,6 +79,14 @@ class Main extends React.Component {
         this.changeSpeed = this.changeSpeed.bind(this);
 
         this.changeToInsert = this.changeToInsert.bind(this);
+        this.changeToSelect = this.changeToSelect.bind(this);
+        this.changeToBubble = this.changeToBubble.bind(this);
+        this.changeToQuick = this.changeToQuick.bind(this);
+        this.changeToMerge = this.changeToMerge.bind(this);
+        this.changeToHeap = this.changeToHeap.bind(this);
+        this.changeToRadix = this.changeToRadix.bind(this);
+        this.changeToBucket = this.changeToBucket.bind(this);                        
+        this.pastChangeAlgo = this.pastChangeAlgo.bind(this);        
     }
 
     render() {
@@ -82,12 +97,56 @@ class Main extends React.Component {
                 <div className='main'>                    
                     <div className='left'>
                         <button className='navBut' id='leftButt' onClick={() => this.toggleAlgo()}>{algoClosedSym}</button>
+                        
                         {
                             algo == 'insert' && 
                             <div className='navButSubtitle'>
                                 Insertion Sort
                             </div>
                         }
+                        {
+                            algo == 'select' && 
+                            <div className='navButSubtitle'>
+                                Selection Sort
+                            </div>
+                        }
+                        {
+                            algo == 'bubble' && 
+                            <div className='navButSubtitle'>
+                                Bubble Sort
+                            </div>
+                        }
+                        {
+                            algo == 'quick' && 
+                            <div className='navButSubtitle'>
+                                Quick Sort
+                            </div>
+                        }
+                        {
+                            algo == 'merge' && 
+                            <div className='navButSubtitle'>
+                                Merge Sort
+                            </div>
+                        }
+                        {
+                            algo == 'heap' && 
+                            <div className='navButSubtitle'>
+                                Heap Sort
+                            </div>
+                        }
+                        {
+                            algo == 'radix' && 
+                            <div className='navButSubtitle'>
+                                Radix Sort
+                            </div>
+                        }
+                        {
+                            algo == 'bucket' && 
+                            <div className='navButSubtitle'>
+                                Bucket Sort
+                            </div>
+                        }                                                
+                                                
                         
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
                         <Link to='/insertion-sort' onClick={() => this.changeToInsert()}>
@@ -100,60 +159,74 @@ class Main extends React.Component {
                         </Link>
 
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='selection hiddenLeft'>
-                                <button className='algoBut'>S.S</button>
+                        <Link to='/selection-sort' onClick={() => this.changeToSelect()}>
+                            <div className="btnContainer">
+                                <div className='selection hiddenLeft'>
+                                    <button className='algoBut'>S.S</button>
+                                </div>
+                                <span className='selectionTitle'>Selection Sort</span>
                             </div>
-                            <span className='selectionTitle'>Selection Sort</span>
-                        </div>
+                        </Link>
                         
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='bubble hiddenLeft'>
-                                <button className='algoBut'>B.S</button>
+                        <Link to='/bubble-sort' onClick={() => this.changeToBubble()}>
+                            <div className="btnContainer">
+                                <div className='bubble hiddenLeft'>
+                                    <button className='algoBut'>B.S</button>
+                                </div>
+                                <span className='bubbleTitle'>Bubble Sort</span>
                             </div>
-                            <span className='bubbleTitle'>Bubble Sort</span>
-                        </div>
+                        </Link>
                         
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='quick hiddenLeft'>
-                                <button className='algoBut'>Q.S</button>
+                        <Link to='/quick-sort' onClick={() => this.changeToQuick()}>
+                            <div className="btnContainer">
+                                <div className='quick hiddenLeft'>
+                                    <button className='algoBut'>Q.S</button>
+                                </div>
+                                <span className='quickTitle'>Quick Sort</span>
                             </div>
-                            <span className='quickTitle'>Quick Sort</span>
-                        </div>
+                        </Link>
                         
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='merge hiddenLeft'>
-                                <button className='algoBut'>M.S</button>
+                        <Link to='/merge-sort' onClick={() => this.changeToMerge()}>
+                            <div className="btnContainer">
+                                <div className='merge hiddenLeft'>
+                                    <button className='algoBut'>M.S</button>
+                                </div>
+                                <span className='mergeTitle'>Merge Sort</span>
                             </div>
-                            <span className='mergeTitle'>Merge Sort</span>
-                        </div>
+                        </Link>
                         
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='heap hiddenLeft'>
-                                <button className='algoBut'>H.S</button>
+                        <Link to='/heap-sort' onClick={() => this.changeToHeap()}>
+                            <div className="btnContainer">
+                                <div className='heap hiddenLeft'>
+                                    <button className='algoBut'>H.S</button>
+                                </div>
+                                <span className='heapTitle'>Heap Sort</span>
                             </div>
-                            <span className='heapTitle'>Heap Sort</span>
-                        </div>
+                        </Link>
                         
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='radix hiddenLeft'>
-                                <button className='algoBut'>R.S</button>
+                        <Link to='/radix-sort' onClick={() => this.changeToRadix()}>
+                            <div className="btnContainer">
+                                <div className='radix hiddenLeft'>
+                                    <button className='algoBut'>R.S</button>
+                                </div>
+                                <span className='radixTitle'>Radix Sort</span>
                             </div>
-                            <span className='radixTitle'>Radix Sort</span>
-                        </div>
+                        </Link>
                         
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
-                        <div className="btnContainer">
-                            <div className='bucket hiddenLeft'>
-                                <button className='algoBut'>B.S</button>
+                        <Link to='/bucket-sort' onClick={() => this.changeToBucket()}>
+                            <div className="btnContainer">
+                                <div className='bucket hiddenLeft'>
+                                    <button className='algoBut'>B.S</button>
+                                </div>
+                                <span className='bucketTitle'>Bucket Sort</span>
                             </div>
-                            <span className='bucketTitle'>Bucket Sort</span>
-                        </div>
+                        </Link>
                     </div>
                     <div className='right'>
                         <button className='navBut' id='rightButt' onClick={() => this.toggleRight()}>+</button>
@@ -268,7 +341,28 @@ class Main extends React.Component {
                 )}/>
                 <Route exact path="/insertion-sort" render={() => (                    
                         <InsertionSort />                        
-                )}/>                
+                )}/>
+                <Route exact path="/selection-sort" render={() => (                    
+                        <SelectionSort />                        
+                )}/> 
+                <Route exact path="/bubble-sort" render={() => (                    
+                        <BubbleSort />                        
+                )}/>
+                <Route exact path="/quick-sort" render={() => (                    
+                        <QuickSort />                        
+                )}/> 
+                <Route exact path="/merge-sort" render={() => (                    
+                        <MergeSort />                        
+                )}/>
+                <Route exact path="/heap-sort" render={() => (                    
+                        <HeapSort />                        
+                )}/> 
+                <Route exact path="/radix-sort" render={() => (                    
+                        <RadixSort />                        
+                )}/>
+                <Route exact path="/bucket-sort" render={() => (                    
+                        <BucketSort />                        
+                )}/>                                                                                
             </Router>
         )
     }
@@ -464,14 +558,52 @@ class Main extends React.Component {
         this.props.dispatch(changeSpeed(Number(e.target.value)));
     }
 
-    changeToInsert() {        
+    changeToInsert() {
+        this.props.dispatch(setToInsert());
+        this.pastChangeAlgo();
+    }
+
+    changeToSelect() {
+        this.props.dispatch(setToSelect());
+        this.pastChangeAlgo();
+    }
+    
+    changeToBubble() {
+        this.props.dispatch(setToBubble());
+        this.pastChangeAlgo();
+    }
+
+    changeToQuick() {
+        this.props.dispatch(setToQuick());
+        this.pastChangeAlgo();
+    }
+    
+    changeToMerge() {
+        this.props.dispatch(setToMerge());
+        this.pastChangeAlgo();
+    }
+    
+    changeToHeap() {
+        this.props.dispatch(setToHeap());
+        this.pastChangeAlgo();
+    }
+
+    changeToRadix() {
+        this.props.dispatch(setToRadix());
+        this.pastChangeAlgo();
+    }    
+
+    changeToBucket() {
+        this.props.dispatch(setToBucket());
+        this.pastChangeAlgo();
+    }    
+
+    pastChangeAlgo() {        
         const arrHidden = document.getElementsByClassName('hiddenLeft');
         for(let item of arrHidden) {                          
             let itemClassArr = item.className.split(' ');
             item.className = `${itemClassArr[0]} hiddenLeft`;
-        }         
-
-        this.props.dispatch(setToInsert());        
+        }                       
 
         const button = document.getElementById('leftButt');
         button.textContent = `${this.props.algoClosedSym}`;
