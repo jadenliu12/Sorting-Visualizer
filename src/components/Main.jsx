@@ -96,7 +96,12 @@ class Main extends React.Component {
             <Router>
                 <div className='main'>                    
                     <div className='left'>
-                        <button className='navBut' id='leftButt' onClick={() => this.toggleAlgo()}>{algoClosedSym}</button>
+                        <button 
+                            className={'navBut ' + algo + 'Nav'}
+                            id='leftButt'                             
+                            onClick={() => this.toggleAlgo()}>
+                                {algoClosedSym}
+                        </button>
                         
                         {
                             algo == 'insert' && 
@@ -377,7 +382,10 @@ class Main extends React.Component {
         }        
 
         button.textContent = button.textContent == `${this.props.algoClosedSym}` ? `${this.props.algoOpenedSym}` : `${this.props.algoClosedSym}`;
-        if(button.textContent == this.props.algoOpenedSym && this.props.algo !== 'home') document.getElementById('leftButt').innerHTML = this.props.algoOpenedSym;
+        if(button.textContent == this.props.algoOpenedSym && this.props.algo !== 'home') {
+            document.getElementById('leftButt').innerHTML = this.props.algoOpenedSym;
+            document.getElementById('leftButt').className = 'navBut houseNav';
+        }
 
         for(let item of arrHidden) {                          
             item.classList.toggle('showLeft');

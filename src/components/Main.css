@@ -67,6 +67,40 @@
     border-right: 3px solid var(--border-color);
 }
 
+/* ================= NavBut font size CSS ==================== */
+
+.selectNav {
+    font-size: 24px;
+}
+
+.bubbleNav {
+    font-size: 24px;
+}
+
+.quickNav {
+    font-size: 22px;
+}
+
+.mergeNav {
+    font-size: 19px;
+}
+
+.heapNav {
+    font-size: 21px;
+}
+
+.radixNav {
+    font-size: 22px;
+}
+
+.bucketNav {
+    font-size: 22px;
+}
+
+.houseNav {
+    font-size: 30px;
+}
+
 /* ================= Button Toggle CSS ==================== */
 
 .hiddenLeft {
