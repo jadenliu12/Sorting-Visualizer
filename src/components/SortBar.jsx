@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 //algorithms
 import {insertionSort} from '../utilities/InsertionSort.js';
 import {selectionSort} from '../utilities/SelectionSort.js';
+import {bubbleSort} from '../utilities/BubbleSort.js';
 
 //redux
 import {setArray, changeColorDone, changeToSorted} from '../states/SortBar-actions.js';
@@ -12,7 +13,7 @@ import {setArray, changeColorDone, changeToSorted} from '../states/SortBar-actio
 import './SortBar.css';
 
 //Sorting settings
-var SORT_SPEED = 1000;
+var SORT_SPEED = 10;
 
 class SortBar extends React.Component {
     static propTypes = {
@@ -35,6 +36,7 @@ class SortBar extends React.Component {
         
         this.insertSort = this.insertSort.bind(this);
         this.selectSort = this.selectSort.bind(this);
+        this.bubSort = this.bubSort.bind(this);
 
         this.sorted = this.sorted.bind(this);
         this.checkArray = this.checkArray.bind(this);
@@ -82,7 +84,10 @@ class SortBar extends React.Component {
                     <button 
                         type='button' 
                         className='button' 
-                        onClick={() => this.props.algo == 'insert' || this.props.algo == 'home' ? this.insertSort() : this.selectSort()}>
+                        onClick={() => 
+                            this.props.algo == 'insert' || this.props.algo == 'home' ? this.insertSort() : 
+                            this.props.algo == 'select' ? this.selectSort() : this.bubSort()
+                        }>
                             <span className='innerButton'>SORT</span>
                     </button>    
                 </div>
@@ -224,6 +229,74 @@ class SortBar extends React.Component {
                 }                
             } 
         } 
+    }
+
+    bubSort() {
+        if(!this.props.sorted) {            
+            console.log(`[bubble] sorting at speed of ${this.props.speed}`);
+            var animations = bubbleSort(this.props.arrayBar, this.props.total);
+            
+            const moves = document.getElementById("movesContainer");
+            const wrapper = document.getElementById("movesWrapper");            
+
+            if(this.props.algo !== "home")
+                wrapper.style.display = 'block';
+
+            for (let i = 0; i < animations.length; i++) {
+                const arrayBars = document.getElementsByClassName('array-bar');            
+                const state = animations[i].message.split(' ')[0];
+
+                if (state === 'Compare') {
+                    const [barOneIdx, barTwoIdx] = animations[i].arr;
+                    const barOneStyle = arrayBars[barOneIdx].style;
+                    const barTwoStyle = arrayBars[barTwoIdx].style;
+                    const color = animations[i].color ? this.props.color.secondary : this.props.color.primary;
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = color;
+                        barTwoStyle.backgroundColor = color;
+
+                        if(this.props.algo !== "home") {
+                            moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
+                            moves.scrollTop = moves.scrollHeight;
+                        }
+
+                        if(i === animations.length-1)
+                            this.sorted();
+                    }, i * (SORT_SPEED / this.props.speed));
+                }
+                else if (state === 'Set') {
+                    const [barOneIdx] = animations[i].arr;
+                    const barOneStyle = arrayBars[barOneIdx].style;
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = this.props.color.tertiary;
+
+                        if(this.props.algo !== "home") {
+                            moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
+                            moves.scrollTop = moves.scrollHeight;
+                        }
+
+                        if(i === animations.length-1)
+                            this.sorted();
+                    }, i * (SORT_SPEED / this.props.speed));
+                }                 
+                else {
+                    setTimeout(() => {
+                        const [barOneIdx, newHeight] = animations[i].arr;
+                        const barOneStyle = arrayBars[barOneIdx].style;
+                        barOneStyle.height = `${newHeight}px`;  
+                        barOneStyle.backgroundColor = `${this.props.color.primary}`;
+
+                        if(this.props.algo !== "home") {
+                            moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
+                            moves.scrollTop = moves.scrollHeight;
+                        }                        
+
+                        if(i === animations.length-1)
+                            this.sorted();                
+                    }, i * (SORT_SPEED / this.props.speed));
+                }                
+            } 
+        }
     }
 
     sorted() {
