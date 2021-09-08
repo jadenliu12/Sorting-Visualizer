@@ -114,5 +114,5 @@
     height: 2.5em;
     min-width: 2.5em;    
     position: relative; /* WebKit Bug 173872 */    
-    width: 100%;    
+    width: 100%;        
 }
