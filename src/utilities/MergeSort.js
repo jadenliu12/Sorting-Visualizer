@@ -1,28 +1,51 @@
-function merge(left, right) {
-    let arr = []
-    // Break out of loop if any one of the array gets empty
-    while (left.length && right.length) {
-        // Pick the smaller among the smallest element of left and right sub arrays 
-        if (left[0] < right[0]) {
-            arr.push(left.shift())  
-        } else {
-            arr.push(right.shift()) 
-        }
+function doMerge(arr, left, mid, right, fakeArr, animations) {
+    let k = left;
+    let i = left;
+    let j = mid + 1;
+
+    while (i <= mid && j <= right) {
+        animations.push({arr: [i, j], message: `Compare ${fakeArr[i]} with ${fakeArr[j]}`, color: true});                
+        animations.push({arr: [i, j], message: `Compare ${fakeArr[i]} with ${fakeArr[j]}`, color: false});   
+
+      if (fakeArr[i] <= fakeArr[j]) {
+        animations.push({arr: [k, fakeArr[i]], message: `Change ${fakeArr[k]} with ${fakeArr[i]}`});
+        arr[k++] = fakeArr[i++];
+      } else {
+        animations.push({arr: [k, fakeArr[j]], message: `Change ${fakeArr[k]} with ${fakeArr[j]}`});
+        arr[k++] = fakeArr[j++];
+      }
     }
-    
-    // Concatenating the leftover elements
-    // (in case we didn't go through the entire left or right array)
-    return [ ...arr, ...left, ...right ]
+    while (i <= mid) {
+
+        animations.push({arr: [i, i], message: `Compare ${fakeArr[i]} with ${fakeArr[i]}`, color: true});                
+        animations.push({arr: [i, i], message: `Compare ${fakeArr[i]} with ${fakeArr[i]}`, color: false}); 
+
+        animations.push({arr: [k, fakeArr[i]], message: `Change ${fakeArr[k]} with ${fakeArr[i]}`});
+        arr[k++] = fakeArr[i++];
+    }
+    while (j <= right) {
+
+        animations.push({arr: [j, j], message: `Compare ${fakeArr[j]} with ${fakeArr[j]}`, color: true});                
+        animations.push({arr: [j, j], message: `Compare ${fakeArr[j]} with ${fakeArr[j]}`, color: false}); 
+
+        animations.push({arr: [k, fakeArr[j]], message: `Change ${fakeArr[k]} with ${fakeArr[j]}`});
+        arr[k++] = fakeArr[j++];
+    }
+}  
+
+function mergeSortHelper(arr, left, right, fakeArr, animations) {
+    if (left === right) return;
+    const mid = Math.floor((left + right) / 2);
+    mergeSortHelper(fakeArr, left, mid, arr, animations);
+    mergeSortHelper(fakeArr, mid + 1, right, arr, animations);
+    doMerge(arr, left, mid, right, fakeArr, animations);
 }
 
-export function mergeSort(arr, n) {
-    const half = n / 2
-    
-    // Base case or terminating case
-    if(n < 2){
-      return arr 
-    }
-    
-    const left = arr.splice(0, half)
-    return merge(mergeSort(left),mergeSort(arr))
-  }
+
+export function mergeSort(arr, animations) {
+    if (arr.length <= 1) 
+        return arr;
+    const fakeArr = arr.slice();
+    mergeSortHelper(arr, 0, arr.length - 1, fakeArr, animations);
+    return animations;
+}

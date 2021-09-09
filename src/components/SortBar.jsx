@@ -6,7 +6,8 @@ import {connect} from 'react-redux';
 import {insertionSort} from '../utilities/InsertionSort.js';
 import {selectionSort} from '../utilities/SelectionSort.js';
 import {bubbleSort} from '../utilities/BubbleSort.js';
-import {quickSort, quikcSort} from '../utilities/QuickSort.js';
+import {quickSort} from '../utilities/QuickSort.js';
+import {mergeSort} from '../utilities/MergeSort.js';
 
 //redux
 import {setArray, changeColorDone, changeToSorted} from '../states/SortBar-actions.js';
@@ -37,8 +38,9 @@ class SortBar extends React.Component {
         
         this.insertSort = this.insertSort.bind(this);
         this.selectSort = this.selectSort.bind(this);
-        this.bubSort = this.bubSort.bind(this);
-        this.quiSort = this.quiSort.bind(this);
+        this.bubbleSort = this.bubbleSort.bind(this);
+        this.quickSort = this.quickSort.bind(this);
+        this.mergeSort = this.mergeSort.bind(this)
 
         this.sorted = this.sorted.bind(this);
         this.checkArray = this.checkArray.bind(this);
@@ -89,7 +91,8 @@ class SortBar extends React.Component {
                         onClick={() => 
                             this.props.algo == 'insert' || this.props.algo == 'home' ? this.insertSort() : 
                             this.props.algo == 'select' ? this.selectSort() : 
-                            this.props.algo == 'bubble' ? this.bubSort() : this.quiSort()
+                            this.props.algo == 'bubble' ? this.bubbleSort() : 
+                            this.props.algo == 'quick' ? this.quickSort() : this.mergeSort()
                         }>
                             <span className='innerButton'>SORT</span>
                     </button>    
@@ -234,7 +237,7 @@ class SortBar extends React.Component {
         } 
     }
 
-    bubSort() {
+    bubbleSort() {
         if(!this.props.sorted) {            
             console.log(`[bubble] sorting at speed of ${this.props.speed}`);
             var animations = bubbleSort(this.props.arrayBar, this.props.total);
@@ -302,7 +305,7 @@ class SortBar extends React.Component {
         }
     }
 
-    quiSort() {
+    quickSort() {
         if(!this.props.sorted) {            
             console.log(`[quick] sorting at speed of ${this.props.speed}`);
             var animations = [];
@@ -348,6 +351,57 @@ class SortBar extends React.Component {
                             this.sorted();
                     }, i * (SORT_SPEED / this.props.speed));
                 }                 
+                else {
+                    setTimeout(() => {
+                        const [barOneIdx, newHeight] = animations[i].arr;
+                        const barOneStyle = arrayBars[barOneIdx].style;
+                        barOneStyle.height = `${newHeight}px`;  
+                        barOneStyle.backgroundColor = `${this.props.color.primary}`;
+
+                        if(this.props.algo !== "home") {
+                            moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
+                            moves.scrollTop = moves.scrollHeight;
+                        }                        
+
+                        if(i === animations.length-1)
+                            this.sorted();                
+                    }, i * (SORT_SPEED / this.props.speed));
+                }                
+            } 
+        }        
+    }
+
+    mergeSort() {
+        if(!this.props.sorted) {            
+            console.log(`[merge] sorting at speed of ${this.props.speed}`);
+            var animations = [];
+            mergeSort(this.props.arrayBar, animations);
+            
+            const moves = document.getElementById("movesContainer");
+            const wrapper = document.getElementById("movesWrapper");            
+
+            if(this.props.algo !== "home")
+                wrapper.style.display = 'block';
+
+            for (let i = 0; i < animations.length; i++) {
+                const arrayBars = document.getElementsByClassName('array-bar');            
+                const state = animations[i].message.split(' ')[0];
+
+                if (state === 'Compare') {
+                    const [barOneIdx] = animations[i].arr;
+                    const barOneStyle = arrayBars[barOneIdx].style;                                        
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = animations[i].color ? this.props.color.secondary : this.props.color.primary;
+
+                        if(this.props.algo !== "home") {
+                            moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
+                            moves.scrollTop = moves.scrollHeight;
+                        }
+
+                        if(i === animations.length-1)
+                            this.sorted();
+                    }, i * (SORT_SPEED / this.props.speed));
+                }              
                 else {
                     setTimeout(() => {
                         const [barOneIdx, newHeight] = animations[i].arr;
