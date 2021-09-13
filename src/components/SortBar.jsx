@@ -388,10 +388,12 @@ class SortBar extends React.Component {
                 const state = animations[i].message.split(' ')[0];
 
                 if (state === 'Compare') {
-                    const [barOneIdx] = animations[i].arr;
-                    const barOneStyle = arrayBars[barOneIdx].style;                                        
+                    const [barOneIdx, barTwoIdx] = animations[i].arr;
+                    const barOneStyle = arrayBars[barOneIdx].style;     
+                    const barTwoStyle = arrayBars[barTwoIdx].style;                                        
                     setTimeout(() => {
-                        barOneStyle.backgroundColor = animations[i].color ? this.props.color.secondary : this.props.color.primary;
+                        barOneStyle.backgroundColor = animations[i].color ? this.props.color.secondary : this.props.color.tertiary;
+                        barTwoStyle.backgroundColor = animations[i].color ? this.props.color.secondary : this.props.color.tertiary;
 
                         if(this.props.algo !== "home") {
                             moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
@@ -401,13 +403,33 @@ class SortBar extends React.Component {
                         if(i === animations.length-1)
                             this.sorted();
                     }, i * (SORT_SPEED / this.props.speed));
-                }              
+                }        
+                else if (state === 'Sort') {
+                    const [left, right] = animations[i].arr;
+                    const barStyle = [];
+
+                    for(let j = left; j <= right; j++)
+                        barStyle.push(arrayBars[j].style);                    
+
+                    setTimeout(() => {
+                        for(let j = 0; j < barStyle.length; j++)
+                            barStyle[j].backgroundColor = animations[i].color ? this.props.color.tertiary : this.props.color.primary;
+
+                        if(this.props.algo !== "home") {
+                            moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;
+                            moves.scrollTop = moves.scrollHeight;
+                        }
+
+                        if(i === animations.length-1)
+                            this.sorted();
+                    }, i * (SORT_SPEED / this.props.speed));
+                }       
                 else {
                     setTimeout(() => {
                         const [barOneIdx, newHeight] = animations[i].arr;
                         const barOneStyle = arrayBars[barOneIdx].style;
                         barOneStyle.height = `${newHeight}px`;  
-                        barOneStyle.backgroundColor = `${this.props.color.primary}`;
+                        barOneStyle.backgroundColor = `${this.props.color.tertiary}`;
 
                         if(this.props.algo !== "home") {
                             moves.innerHTML += `<div class="moves">${animations[i].message}</div>`;

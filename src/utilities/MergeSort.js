@@ -38,7 +38,9 @@ function mergeSortHelper(arr, left, right, fakeArr, animations) {
     const mid = Math.floor((left + right) / 2);
     mergeSortHelper(fakeArr, left, mid, arr, animations);
     mergeSortHelper(fakeArr, mid + 1, right, arr, animations);
+    animations.push({arr: [left, right], message: `Sort ${fakeArr[left]} until ${fakeArr[right]}`, color: true});
     doMerge(arr, left, mid, right, fakeArr, animations);
+    animations.push({arr: [left, right], message: `Sort ${fakeArr[left]} until ${fakeArr[right]}`, color: false});
 }
 
 
