@@ -133,7 +133,7 @@ class Main extends React.Component {
                                 Merge Sort
                             </div>
                         }
-                        {
+                        {/* {
                             algo == 'heap' && 
                             <div className='navButSubtitle'>
                                 Heap Sort
@@ -150,7 +150,7 @@ class Main extends React.Component {
                             <div className='navButSubtitle'>
                                 Bucket Sort
                             </div>
-                        }                                                
+                        }                                                 */}
                                                 
                         
                         <div className='vertLine hiddenLeft'>&nbsp;</div>
@@ -203,7 +203,7 @@ class Main extends React.Component {
                             </div>
                         </Link>
                         
-                        <div className='vertLine hiddenLeft'>&nbsp;</div>
+                        {/* <div className='vertLine hiddenLeft'>&nbsp;</div>
                         <Link to='/heap-sort' onClick={() => this.changeToHeap()}>
                             <div className="btnContainer">
                                 <div className='heap hiddenLeft'>
@@ -231,7 +231,7 @@ class Main extends React.Component {
                                 </div>
                                 <span className='bucketTitle'>Bucket Sort</span>
                             </div>
-                        </Link>
+                        </Link> */}
                     </div>
                     <div className='right'>
                         <button className='navBut' id='rightButt' onClick={() => this.toggleRight()}>+</button>
