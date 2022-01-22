@@ -1,5 +1,6 @@
 {
   "name": "sorting-visualizer-app",
+  "homepage": "https://jadenliu12.github.io/Sorting-Visualizer/",
   "version": "1.0.0",
   "description": "An app that is used to visualize different types of sorting algorithm",
   "main": "src/index.jsx",
