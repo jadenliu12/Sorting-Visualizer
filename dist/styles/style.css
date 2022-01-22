@@ -1,0 +1,23 @@
+body {
+    --text-color: #707070;
+    --active-text-color: #FFFFFF;
+    --bkg-color: #FFFFFF;
+    --active-bkg-color: #707070;
+    --border-color: #707070;
+    --active-border-color: #FFFFFF;
+    --check-color: #cccccc;
+    --check-mark-color: #FFFFFF;
+    background-color: #FFFFFF;
+}
+
+body.dark-theme {
+    --text-color: #FFFFFF;
+    --active-text-color: #707070;
+    --bkg-color: #707070;
+    --active-bkg-color: #FFFFFF;
+    --border-color: #FFFFFF;
+    --active-border-color: #707070;
+    --check-color: #FFFFFF;
+    --check-mark-color: #cccccc;    
+    background-color: #707070;
+  }
