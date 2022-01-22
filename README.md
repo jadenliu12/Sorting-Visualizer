@@ -29,3 +29,19 @@ npm run start
 2. Click the URL provided in this repo (Running on github server)
 
 ## Web Photos
+### Home Page
+![Home Page](/Images/home.png)  
+### Extended Home Page
+![Extended Home Page](/Images/home_full_ui.png)  
+### Open Input Settings
+![Open Input Settings](/Images/input.png)  
+### Open Settings
+![Open Settings](/Images/settings.png)  
+### Insertion Sort
+![Insertion Sort](/Images/insertion_sort.png)  
+### Running Sorting Process
+![Running Sorting Process](/Images/running.png)  
+### Finish Sorting Process
+![Finish Sorting Process](/Images/finsh.png)  
+### Changing Bar Color
+![Changing Bar Color](/Images/change_color.png)  
