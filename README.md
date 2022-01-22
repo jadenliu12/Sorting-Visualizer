@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# Sorting Visualizer
+  
+## Basic Informations  
+Description: A web application to study different types of sorting  
+Language: React.js + Redux
+Features:  
+- 5 different types of sorting (Insertion, Selection, Bubble, Quick, Merge Sort)
+- Interactive and simple UI
+- Simple to use application
+- 5 settings for speed (0.25, 0.5, 1, 1.5, 2)
+- Input can be randomize/shuffle/manually set
+- Light and dark mode
+- Customizable color for bar UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Code Architechture
+The source code for this sorting visualizer are all put in one main folder which is the src folder. In that directory we can find the index.html and index.jsx files which are the 2 main files for the website. Other than those 2 files, we have 3 different folders with their own uses.  
+- src/components: Stores all the .jsx component files which will be then rendered by the index.jsx file
+- src/states: Stores all the states (actions and reducers) which will be used by the application
+- src/utilities: Stores all the source code for the sorting algorithms
 
-## Available Scripts
+## How To Use The Sorting Visualizer?
+There are 2 ways which you can do in order to use the sorting visualizer.
+1. Follow these steps: (Running on local machine)
+```
+git clone [clone URL]
+npm install
+npm run start
+```
+2. Click the URL provided in this repo (Running on github server)
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Web Photos
