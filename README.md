@@ -26,7 +26,7 @@ git clone [clone URL]
 npm install
 npm run start
 ```
-2. Click the URL provided in this repo (Running on github server)
+2. Click the URL provided in this repo (Running on github server) **IN PROGRESS**
 
 ## Web Photos
 ### Home Page
